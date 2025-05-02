@@ -29,4 +29,4 @@ class RideEvent(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"RideEvent {self.id_ride_event} for Ride {self.id_ride_id}"
+        return f"RideEvent {self.id_ride_event} for Ride {self.id_ride}"
