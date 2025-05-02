@@ -1,5 +1,4 @@
 from django.db import models
-from auth.models import User
 
 
 class Ride(models.Model):
@@ -11,12 +10,8 @@ class Ride(models.Model):
 
     id_ride = models.AutoField(primary_key=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
-    id_rider = models.ForeignKey(
-        User, related_name="rider_rides", on_delete=models.CASCADE
-    )
-    id_driver = models.ForeignKey(
-        User, related_name="driver_rides", on_delete=models.CASCADE
-    )
+    id_rider = models.ForeignKey("users.models.User", related_name="rider_rides", on_delete=models.CASCADE)
+    id_driver = models.ForeignKey("users.models.User", related_name="driver_rides", on_delete=models.CASCADE)
     pickup_latitude = models.FloatField()
     pickup_longitude = models.FloatField()
     dropoff_latitude = models.FloatField()
