@@ -1,24 +1,57 @@
 # [ride-app](https://github.com/devvienxyz/ride-app)
 
-## Setup
+A full-stack ride-sharing application built with Django (backend), Vite + React (frontend), Docker, and PostgreSQL.
 
-No need to setup long if Docker is used.
+## Tech Stack
 
-## Development
+- Backend: Django + Django REST Framework
+
+- Frontend: Vite + React
+
+- Database: PostgreSQL
+
+- Containerization: Docker + Docker Compose
+
+- Testing: tox, pytest, coverage
+
+- Dev Tools: Pre-commit, linters, formatters
+
+- Other Tools: DBeaver
+
+## Quick Start
+
+### With Docker (recommended)
+
+Development
 
 ```bash
 docker compose -f docker-compose.dev.yml up --build
 ```
 
+Production
+
+```bash
+docker compose -f docker-compose.prod.yml up --build
+```
+
+## Manual Setup (dev mode only)
+
 If running both apps manually,
 
 ```bash
 cd backend
-python3 -m venv venv
+python3.12 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
+```
 
+Frontend runs with
+
+```bash
+cd frontend
+npm ci
+npm run dev
 ```
 
 ## Testing
@@ -27,8 +60,12 @@ pip install -r requirements-dev.txt
 tox
 ```
 
-## Production
+## Additional Documentation
 
-```bash
-docker compose -f docker-compose.prod.yml up --build
-```
+Miscellaneous documentation is available in the `docs/` directory:
+
+- **postgresql.md**: Local PostgreSQL setup
+
+- **tools.md**: Overview of tools and services used in the project
+
+Refer to these files for deeper configuration notes and development context.
