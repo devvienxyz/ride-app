@@ -17,6 +17,7 @@
   },
   "scripts": {
     "dev": "vite dev",
+    "install": "vite install",
     "build": "vite build",
     "serve": "vite preview"
   }

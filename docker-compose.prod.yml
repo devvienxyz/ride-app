@@ -12,9 +12,11 @@ services:
   frontend:
     build:
       context: ./frontend
-    command: ["npm", "run", "build"]
-    volumes:
-      - ./frontend:/app
+      target: production
+    ports:
+      - "80:4173" # Map host port 80 to container port 4173
+    environment:
+      - NODE_ENV=production
     depends_on:
       - backend
 
