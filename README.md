@@ -7,7 +7,7 @@ No need to setup long if Docker is used.
 ## Development
 
 ```bash
-docker compose up --build
+docker compose -f docker-compose.dev.yml up --build
 ```
 
 If running both apps manually,
@@ -25,4 +25,10 @@ pip install -r requirements-dev.txt
 
 ```bash
 tox
+```
+
+## Production
+
+```bash
+docker compose -f docker-compose.prod.yml up --build
 ```

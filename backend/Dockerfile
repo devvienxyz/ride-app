@@ -1,20 +1,13 @@
 FROM python:3.12-slim
-
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
-
-RUN apt-get update && apt-get install -y \
-    gcc libpq-dev netcat \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
 WORKDIR /app
 
+# base deps
 COPY requirements.txt .
-RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
+
+# install dev deps if flag is set
+ARG INSTALL_DEV=false
+COPY requirements-dev.txt ./
+RUN if [ "$INSTALL_DEV" = "true" ]; then pip install -r requirements-dev.txt; fi
 
 COPY . .
-
-RUN python manage.py collectstatic --noinput
-
-CMD ["gunicorn", "project.wsgi:application", "--bind", "0.0.0.0:8000", "--workers=4", "--threads=4", "--timeout=60"]
