@@ -39,6 +39,8 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "src"),
+        "@components": path.resolve(__dirname, "src/components"),
+        "@pages": path.resolve(__dirname, "src/pages"),
       },
     },
     build: {
@@ -53,14 +55,6 @@ export default defineConfig(({ mode }) => {
           }
         }
       }
-    },
-    server: {
-      proxy: {
-        "/api": {
-          target: env.VITE_API_BASE_URL || "http://backend:8000",
-          changeOrigin: true,
-        },
-      }
-    },
+    }
   }
 });
