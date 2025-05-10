@@ -1,18 +1,15 @@
-from users.permissions import IsAdminUserCustom
 from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 from django.utils.timezone import now, timedelta
-from .models import Ride, RideEvent
-from .serializers import RideSerializer, RideEventSerializer
-from .filters import RideFilter
-from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
 from django.db.models import Prefetch
+from .models import Ride, RideEvent
+from .serializers import RideSerializer, RideEventSerializer
+from .filters import RideFilter
 
 
 class RideViewSet(ReadOnlyModelViewSet):
     serializer_class = RideSerializer
-    permission_classes = [IsAuthenticated, IsAdminUserCustom]
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = RideFilter
     ordering_fields = ["pickup_time", "distance"]
