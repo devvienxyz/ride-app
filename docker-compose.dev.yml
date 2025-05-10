@@ -12,6 +12,8 @@ services:
       - "8000:8000"
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings.development
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   frontend:
     build:
