@@ -57,7 +57,11 @@ npm run dev
 ## Testing
 
 ```bash
+# test everything
 tox
+
+# run a single test
+tox -- backend/rides/tests/test_views.py::test_rides_accessible_to_admin_only  
 ```
 
 ## Other script commands
