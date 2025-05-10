@@ -1,5 +1,12 @@
+import django
+import os
 import pytest
 from django.contrib.auth import get_user_model
+
+
+# Ensure the settings module is properly configured for tests
+os.environ["DJANGO_SETTINGS_MODULE"] = "config.settings.test"  # Adjust this to your test settings module
+django.setup()  # Ensure Django is set up before accessing models
 
 
 @pytest.fixture
