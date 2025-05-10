@@ -26,7 +26,6 @@ services:
     build:
       context: ./frontend
       target: development
-    command: npm run dev
     volumes:
       - ./frontend:/app
       - /app/node_modules

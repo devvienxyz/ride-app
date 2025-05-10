@@ -1,4 +1,4 @@
-FROM python:3.12-slim-buster AS base
+FROM python:3.12.10-alpine AS base
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -6,9 +6,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 
 # system deps
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    postgresql-client \
-    && rm -rf /var/lib/apt/lists/*
+RUN apk update && apk add --no-cache postgresql-client
 
 # base deps
 COPY requirements.txt .

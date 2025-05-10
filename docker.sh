@@ -29,9 +29,13 @@ case "$1" in
     # Show status of containers
     docker compose -f $COMPOSE_FILE ps
     ;;
-  logs)
+  logs-all)
     # Tail logs for all containers
     docker compose -f $COMPOSE_FILE logs -f
+    ;;
+  logs-be)
+    # Tail logs for all containers
+    docker compose -f $COMPOSE_FILE logs -f backend
     ;;
   bash)
     # Open interactive shell in the 'backend' container
@@ -43,7 +47,7 @@ case "$1" in
     ;;
   *)
     # Default help message if an unknown command is passed
-    echo "Usage: $0 {up|up-build|down|stop|ps|logs|bash|shell} [dev|prod]"
+    echo "Usage: $0 {up|up-build|down|stop|ps|logs-all|logs-be|bash|shell} [dev|prod]"
     exit 1
     ;;
 esac

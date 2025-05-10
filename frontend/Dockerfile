@@ -11,13 +11,12 @@ COPY . .
 # --- Development Stage ---
 FROM base AS development
 
-
 WORKDIR /app
 
 # Copy deps and source from build stage
 COPY --from=base /app /app
 
-RUN npm install --save-dev --verbose
+RUN npm install --save-dev --ignore-scripts --verbose
 
 EXPOSE 5173
 
@@ -31,7 +30,7 @@ WORKDIR /app
 # Copy built source from base stage
 COPY --from=base /app /app
 
-RUN npm run build --verbose
+RUN npm run build --verbose 
 
 RUN npm install -g serve
 
