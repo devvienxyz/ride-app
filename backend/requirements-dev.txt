@@ -5,3 +5,4 @@ ruff
 django-extensions
 Werkzeug
 drf-spectacular
+dotenv
