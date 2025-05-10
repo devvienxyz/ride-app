@@ -81,7 +81,11 @@ Check `docker.sh` for more commands.
 
 ## Additional Documentation
 
-Miscellaneous documentation is available in the `docs/` directory:
+The API documentation can be accessed via `http://localhost:8000/api/docs/`. Note that this is only available on **DEVELOPMENT** mode.
+
+Go to `http://localhost:8000/api/schema/` to download the API Schema in OpenAPI format.
+
+Miscellaneous documentation is available in the `/docs/` directory:
 
 - **postgresql.md**: Local PostgreSQL setup
 

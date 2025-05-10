@@ -4,3 +4,4 @@ pytest-cov
 ruff
 django-extensions
 Werkzeug
+drf-spectacular
