@@ -74,7 +74,7 @@ case "$1" in
     ;;
   bash)
     # Open interactive shell in the 'backend' container
-    docker compose -f "$COMPOSE_FILE" exec backend bash
+    docker compose -f "$COMPOSE_FILE" exec backend sh
     ;;
   shell)
     # Launch Django shell inside the 'backend' container
