@@ -25,13 +25,13 @@ A full-stack ride-sharing application built with Django (backend), Vite + React 
 Development
 
 ```bash
-docker compose -f docker-compose.dev.yml up --build
+./docker.sh up-build dev
 ```
 
 Production
 
 ```bash
-docker compose -f docker-compose.prod.yml up --build
+./docker.sh up-build prod
 ```
 
 ## Manual Setup (dev mode only)
@@ -73,7 +73,7 @@ tox
 ./docker.sh up-build prod
  
 # Exec into prod backend container
-./docker.sh bash prod 
+./docker.sh bash prod
 # stop 
 ```
 
