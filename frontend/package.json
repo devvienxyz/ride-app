@@ -19,7 +19,8 @@
   },
   "scripts": {
     "dev": "vite dev",
-    "install": "vite install",
+    "install": "vite install --ignore-scripts",
+    "prepare": "echo skipped",
     "build": "vite build",
     "serve": "vite preview"
   }
