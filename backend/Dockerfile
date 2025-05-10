@@ -12,9 +12,17 @@ RUN apk update && apk add --no-cache postgresql-client
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# install dev deps if flag is set
-ARG INSTALL_DEV=false
-COPY requirements-dev.txt ./
-RUN if [ "$INSTALL_DEV" = "true" ]; then pip install -r requirements-dev.txt; fi
+
+# --- Development Stage ---
+FROM base AS development
+
+WORKDIR /app
+
+# Copy deps and source from build stage
+COPY --from=base /app /app
+
+COPY requirements-dev.txt .
+
+RUN pip install --no-cache-dir -r requirements-dev.txt
 
 COPY . .

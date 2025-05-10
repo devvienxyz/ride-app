@@ -4,7 +4,8 @@ services:
       - ./backend/.env
     build:
       context: ./backend
-    command: python -m watchgod manage runserver 0.0.0.0:8000
+      target: development
+    command: python manage.py runserver_plus 0.0.0.0:8000
     volumes:
       - ./backend:/app
     ports:

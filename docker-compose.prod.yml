@@ -6,8 +6,6 @@ services:
     volumes: []
     env_file:
       - ./backend/.env
-    depends_on:
-      - db
 
   frontend:
     build:

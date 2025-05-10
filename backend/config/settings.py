@@ -42,6 +42,14 @@ INSTALLED_APPS = [
     "ride",
 ]
 
+DEV_APPS = [
+    "django_extensions",
+]
+
+if DEBUG:
+    INSTALLED_APPS += DEV_APPS
+    RUNSERVERPLUS_SERVER_ADDRESS_PORT = "0.0.0.0:8000"
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
