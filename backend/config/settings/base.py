@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-j9lh_bz-ssju8idm-vxsg9yen#1nd7&d@xpzdr9ggsgb9oona@"
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 ALLOWED_HOSTS = []
 
