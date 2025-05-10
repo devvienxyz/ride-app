@@ -18,8 +18,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
+from .views import HealthCheckView
+
 
 urlpatterns = [
+    path("health/", HealthCheckView.as_view(), name="health_check"),  # Health check endpoint
     path("api/rides/", include("ride.urls")),
 ]
 
