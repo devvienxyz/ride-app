@@ -7,8 +7,10 @@ from .models import Ride, RideEvent
 from .serializers import RideSerializer, RideEventSerializer
 from .filters import RideFilter
 
+from rest_framework.settings import api_settings
+print(api_settings.DEFAULT_PERMISSION_CLASSES)
 
-class RideViewSet(ReadOnlyModelViewSet):
+class RidesViewSet(ReadOnlyModelViewSet):
     serializer_class = RideSerializer
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = RideFilter
@@ -27,6 +29,6 @@ class RideViewSet(ReadOnlyModelViewSet):
         return {**super().get_serializer_context(), "today_threshold": now() - timedelta(hours=24)}
 
 
-class RideEventViewSet(ModelViewSet):
+class RideEventsViewSet(ModelViewSet):
     queryset = RideEvent.objects.all()
     serializer_class = RideEventSerializer

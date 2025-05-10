@@ -37,10 +37,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "django_filters",
+    "shared",
     "users",
     "ride",
     "dj_database_url",
-    "shared",
 ]
 
 MIDDLEWARE = [
@@ -128,10 +128,11 @@ REST_FRAMEWORK = {
         "shared.permissions.IsAdminOrSuperuser",
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        # "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
     "DEFAULT_RENDERER_CLASSES": (
         "rest_framework.renderers.JSONRenderer",
         # Exclude the browsable UI by default
     ),
+    "PAGE_SIZE": 10,
 }

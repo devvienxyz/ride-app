@@ -12,10 +12,6 @@ INSTALLED_APPS += [
 INTERNAL_IPS = ["127.0.0.1", "localhost", "0.0.0.0"]
 ALLOWED_HOSTS = INTERNAL_IPS + []
 
-REST_FRAMEWORK = {
-    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-}
-
 SPECTACULAR_SETTINGS = {
     "TITLE": "Ride App",
     "DESCRIPTION": "API documentation for development",
@@ -23,6 +19,7 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": False,
 }
 
+REST_FRAMEWORK["DEFAULT_SCHEMA_CLASS"] = "drf_spectacular.openapi.AutoSchema"
 REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = [
     "rest_framework.renderers.JSONRenderer",  # Allow UI in other environments
     "rest_framework.renderers.BrowsableAPIRenderer",
