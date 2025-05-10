@@ -60,6 +60,25 @@ npm run dev
 tox
 ```
 
+## Other script commands
+
+```bash
+# Start dev environment in background
+./docker.sh up dev
+
+# Tail logs for dev
+./docker.sh logs dev
+
+# Rebuild and start prod
+./docker.sh up-build prod
+ 
+# Exec into prod backend container
+./docker.sh bash prod 
+# stop 
+```
+
+Check `docker.sh` for more commands.
+
 ## Additional Documentation
 
 Miscellaneous documentation is available in the `docs/` directory:
