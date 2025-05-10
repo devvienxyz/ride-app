@@ -7,8 +7,6 @@ from .models import Ride, RideEvent
 from .serializers import RideSerializer, RideEventSerializer
 from .filters import RideFilter
 
-from rest_framework.settings import api_settings
-print(api_settings.DEFAULT_PERMISSION_CLASSES)
 
 class RidesViewSet(ReadOnlyModelViewSet):
     serializer_class = RideSerializer
