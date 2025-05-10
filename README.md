@@ -61,7 +61,9 @@ npm run dev
 tox
 
 # run a single test
-tox -- backend/rides/tests/test_views.py::test_rides_accessible_to_admin_only  
+tox -- backend/rides/tests/test_views.py::test_rides_accessible_to_admin_only
+
+tox -e py12 -- backend/rides/tests/test_views.py::test_rides_accessible_to_admin_only
 ```
 
 ## Other script commands
