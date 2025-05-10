@@ -12,18 +12,15 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-j9lh_bz-ssju8idm-vxsg9yen#1nd7&d@xpzdr9ggsgb9oona@"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -41,14 +38,6 @@ INSTALLED_APPS = [
     "users",
     "ride",
 ]
-
-DEV_APPS = [
-    "django_extensions",
-]
-
-if DEBUG:
-    INSTALLED_APPS += DEV_APPS
-    RUNSERVERPLUS_SERVER_ADDRESS_PORT = "0.0.0.0:8000"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

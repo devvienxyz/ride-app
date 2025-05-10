@@ -6,6 +6,9 @@ services:
     volumes: []
     env_file:
       - ./backend/.env
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.production
+
 
   frontend:
     build:
