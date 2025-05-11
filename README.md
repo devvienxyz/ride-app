@@ -2,6 +2,8 @@
 
 A full-stack ride-sharing application built with Django (backend), Vite + React (frontend), Docker, and PostgreSQL.
 
+[![codecov](https://codecov.io/gh/devvienxyz/ride-app/branch/main/graph/badge.svg)](https://codecov.io/gh/devvienxyz/ride-app)
+
 ## Tech Stack
 
 - Backend: Django + Django REST Framework
