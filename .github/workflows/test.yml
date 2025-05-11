@@ -37,6 +37,9 @@ jobs:
           echo "TEST_DB_USER=postgres" >> $GITHUB_ENV
           echo "TEST_DB_PASSWORD=postgres" >> $GITHUB_ENV
       - name: Run tests with tox and collect coverage
+        env:
+          TEST_DB_USER: postgres
+          TEST_DB_PASSWORD: postgres
         run: tox -e py12 -- --cov --cov-report=xml
       - name: Upload results to Codecov
         uses: codecov/codecov-action@v5
