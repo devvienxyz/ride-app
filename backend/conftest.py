@@ -12,7 +12,11 @@ django.setup()  # Ensure Django is set up before accessing models
 def create_superuser():
     """Fixture to create a superuser"""
     return get_user_model().objects.create_superuser(
-        email="admin@example.com", password="password", first_name="Admin", last_name="User", phone_number="1234567890"
+        email="admin@example.com",
+        password="password",
+        first_name="Admin",
+        last_name="User",
+        phone_number="1234567890",
     )
 
 

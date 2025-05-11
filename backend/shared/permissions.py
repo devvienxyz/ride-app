@@ -8,6 +8,6 @@ class IsAdminOrSuperuser(BasePermission):
 
     def has_permission(self, request, view):
         try:
-            return request.user and (request.user.is_admin or request.user.is_superuser)
+            return request.user and (request.user.is_staff or request.user.is_superuser)
         except AttributeError:
             return False
