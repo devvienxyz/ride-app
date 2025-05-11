@@ -5,6 +5,9 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      TEST_DB_USER: "postgres"
+      TEST_DB_PASSWORD: "postgres"
     services:
       postgres:
         image: postgres:14
@@ -29,10 +32,6 @@ jobs:
           python-version: "3.12"
       - name: Install dependencies
         run: pip install tox
-      - name: Set environment variables
-        run: |
-          echo "TEST_DB_USER=postgres" >> $GITHUB_ENV
-          echo "TEST_DB_PASSWORD=postgres" >> $GITHUB_ENV
       - name: Run tests with tox and collect coverage
         run: tox -e py12 -- --cov --cov-report=xml
       - name: Upload results to Codecov
