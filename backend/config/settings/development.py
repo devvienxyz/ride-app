@@ -1,10 +1,11 @@
-from . import base as base_settings
+from .base import *  # noqa: F401, F403
+from .base import INSTALLED_APPS, REST_FRAMEWORK
 
 DEBUG = True
 RUNSERVERPLUS_SERVER_ADDRESS_PORT = "0.0.0.0:8000"
 MODE = "development"
 
-base_settings.INSTALLED_APPS += [
+INSTALLED_APPS += [
     "django_extensions",
     "drf_spectacular",
 ]
@@ -19,8 +20,8 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": False,
 }
 
-base_settings.REST_FRAMEWORK["DEFAULT_SCHEMA_CLASS"] = "drf_spectacular.openapi.AutoSchema"
-base_settings.REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = [
+REST_FRAMEWORK["DEFAULT_SCHEMA_CLASS"] = "drf_spectacular.openapi.AutoSchema"
+REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = [
     "rest_framework.renderers.JSONRenderer",  # Allow UI in other environments
     "rest_framework.renderers.BrowsableAPIRenderer",
 ]

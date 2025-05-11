@@ -1,4 +1,4 @@
-from . import base as base_settings  # noqa: F401
+from .base import *  # noqa: F401, F403
 
 DEBUG = False
 MODE = "production"
