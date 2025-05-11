@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_filters",
     "dj_database_url",
+    "rest_framework_simplejwt",
 ] + LOCAL_APPS
 
 
@@ -135,7 +136,7 @@ REST_FRAMEWORK = {
         "shared.permissions.IsAdminOrSuperuser",
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        # "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
     "DEFAULT_RENDERER_CLASSES": (
         "rest_framework.renderers.JSONRenderer",

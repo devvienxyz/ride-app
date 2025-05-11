@@ -5,3 +5,4 @@ djangorestframework
 gunicorn
 django-filter
 dj-database-url
+djangorestframework-simplejwt

@@ -24,6 +24,7 @@ from .views import HealthCheckView
 urlpatterns = [
     path("health/", HealthCheckView.as_view(), name="health_check"),  # Health check endpoint
     path("api/rides/", include("ride.urls")),
+    path("api/users/", include("users.urls")),
 ]
 
 if settings.DEBUG and settings.MODE == "development":
