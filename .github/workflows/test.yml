@@ -9,8 +9,8 @@ jobs:
       postgres:
         image: postgres:14
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          TEST_DB_USER: postgres
+          TEST_DB_PASSWORD: postgres
         ports:
           - 5432:5432
         options: >-
@@ -27,8 +27,6 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.12"
-      - name: Set up environment variables
-        run: echo "DATABASE_URL=postgres://postgres:postgres@localhost:5432/test_ride_app_db" >> $GITHUB_ENV
       - name: Install dependencies
         run: pip install tox
       - name: Run tests with tox and collect coverage
