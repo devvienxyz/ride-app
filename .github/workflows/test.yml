@@ -36,6 +36,8 @@ jobs:
         run: |
           echo "TEST_DB_USER=postgres" >> $GITHUB_ENV
           echo "TEST_DB_PASSWORD=postgres" >> $GITHUB_ENV
+      - name: Debug environment variables
+        run: echo "TEST_DB_USER is $TEST_DB_USER"
       - name: Run tests with tox and collect coverage
         env:
           TEST_DB_USER: postgres
