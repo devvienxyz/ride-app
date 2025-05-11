@@ -63,10 +63,18 @@ tox
 # run a single test
 tox -- backend/rides/tests/test_views.py::test_rides_accessible_to_admin_only
 
-tox -e py12 -- backend/rides/tests/test_views.py::test_rides_accessible_to_admin_only
+tox -e py12 -- backend/ride/tests/test_views.py::test_rides_accessible_to_admin_only
 ```
 
-## Other script commands
+## Other django commands
+
+```bash
+# list all generated route names
+python manage.py show_urls
+```
+
+
+## Other docker script commands
 
 ```bash
 # Start dev environment in background
