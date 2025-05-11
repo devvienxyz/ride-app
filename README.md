@@ -60,9 +60,10 @@ npm run dev
 # test everything
 tox
 
-# run a single test
+# run a single test (run lint, unit test)
 tox -- backend/ride/tests/test_views.py::test_rides_accessible_to_admin_only
 
+# run only the unit test, no lint
 tox -e py12 -- backend/ride/tests/test_views.py::test_rides_accessible_to_admin_only
 ```
 

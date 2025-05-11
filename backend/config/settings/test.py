@@ -8,8 +8,8 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "ride_app_db",
-        "USER": os.getenv("POSTGRES_USER"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "USER": os.getenv("TEST_DB_USER"),
+        "PASSWORD": os.getenv("TEST_DB_PASSWORD"),
         "HOST": "localhost",
         "PORT": "5432",
         "TEST": {
