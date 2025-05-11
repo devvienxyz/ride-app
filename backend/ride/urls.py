@@ -4,7 +4,7 @@ from .views import RidesViewSet, RideEventsViewSet
 
 router = DefaultRouter()
 router.register(r"rides", RidesViewSet, basename="rides")
-router.register(r"ride-events", RideEventsViewSet, basename="ride-events")
+router.register(r"ride-events", RideEventsViewSet, basename="ride_events")
 
 urlpatterns = [
     path("", include(router.urls)),
