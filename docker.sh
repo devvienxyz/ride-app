@@ -72,6 +72,10 @@ case "$1" in
     # Tail logs for the backend container
     docker compose -f "$COMPOSE_FILE" logs -f backend
     ;;
+  logs-fe)
+    # Tail logs for the frontend container
+    docker compose -f "$COMPOSE_FILE" logs -f frontend
+    ;;
   bash)
     # Open interactive shell in the 'backend' container
     docker compose -f "$COMPOSE_FILE" exec backend sh
@@ -88,13 +92,9 @@ case "$1" in
     # Rebuild a specific service container
     rebuild_container "$2"
     ;;
-  logs)
-    # View logs for a specific service container
-    logs_service "$2"
-    ;;
   *)
     # Default help message if an unknown command is passed
-    echo "Usage: $0 {up|up-build|down|stop|ps|logs-all|logs-be|bash|shell|check-be-package|rebuild|logs} [dev|prod] [additional arguments]"
+    echo "Usage: $0 {up|up-build|down|stop|ps|logs-all|logs-be|logs-fe|bash|shell|check-be-package|rebuild} [dev|prod] [additional arguments]"
     exit 1
     ;;
 esac
