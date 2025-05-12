@@ -1,25 +1,25 @@
 {
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.5",
+    "@tailwindcss/vite": "^4.1.6",
     "@vitest/ui": "^3.1.3",
     "axios": "^1.9.0",
-    "postcss": "^8.5.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router": "^7.5.3",
-    "tailwindcss": "^4.1.5",
     "vitest": "^3.1.3",
     "zustand": "^5.0.4"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@vitejs/plugin-react-swc": "^3.9.0",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.6",
     "vite": "^6.3.4",
     "vite-plugin-pwa": "^1.0.0"
   },
   "scripts": {
     "dev": "vite dev",
-    "install": "vite install --ignore-scripts",
     "prepare": "echo skipped",
     "build": "vite build",
     "serve": "vite preview"
