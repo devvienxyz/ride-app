@@ -144,5 +144,6 @@ REST_FRAMEWORK = {
         "rest_framework.renderers.JSONRenderer",
         # Exclude the browsable UI by default
     ),
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
 }
