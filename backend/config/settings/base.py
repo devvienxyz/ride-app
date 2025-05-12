@@ -27,7 +27,7 @@ load_dotenv(BASE_DIR / ".env")
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
-ALLOWED_HOSTS: list[str] = []
+ALLOWED_HOSTS: list[str] = ["backend"]
 
 # Application definition
 
@@ -131,9 +131,7 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-SIMPLE_JWT = {
-    "USER_ID_FIELD": "id_user"
-}
+SIMPLE_JWT = {"USER_ID_FIELD": "id_user"}
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
