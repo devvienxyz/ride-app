@@ -18,7 +18,7 @@ def test_login_invalid_credentials(client):
     resp = client.post(url, {"email": "wrong@example.com", "password": "wrongpass"}, format="json")
     assert resp.status_code == 401
     assert "access" not in resp.data
-
+    assert "Invalid email or password."  == str(resp.data["detail"])
 
 def test_login_missing_fields(client):
     url = reverse("token_obtain_pair")
