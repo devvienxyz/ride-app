@@ -87,4 +87,6 @@ sudo tail -f /var/log/postgresql/postgresql-14-main.log
 # Test Connection Using psql from Docker
 ./docker.sh bash dev
 psql -h host.docker.internal -U admin_ride_app -d dev_ride_app
+# example database url
+# postgresql://<db user>:<db password>@host.docker.internal:5432/<db name>
 ```
