@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+html {
+    font-family: "Poppins", sans-serif;
+}
+
+.brand {
+    font-family: "Playwrite DK Loopet", cursive;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}

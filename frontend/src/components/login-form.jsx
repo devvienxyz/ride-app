@@ -21,8 +21,10 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleLogin} className="w-full max-w-sm mx-auto p-4 border rounded">
-      <h2 className="text-xl mb-4">Login</h2>
+    <form onSubmit={handleLogin} className="bg-blue-50 flex flex-col w-full p-8 border border-none rounded">
+      <h1 className="brand text-6xl mb-8 text-center">ride</h1>
+      <h2 className="text-2xl text-center mb-6">Sign in</h2>
+      <h2 className="text-md mb-4 font-light">Sign in with your email address</h2>
       <input
         type="email"
         value={email}
@@ -40,8 +42,8 @@ export default function LoginForm() {
         className="block w-full mb-2 p-2 border rounded"
       />
       {error && <div className="text-red-600 mb-2">{error}</div>}
-      <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded">
-        Login
+      <button type="submit" className="brand w-full bg-blue-600 text-xl text-white rounded mt-4 py-4">
+        Sign in
       </button>
     </form>
   );
