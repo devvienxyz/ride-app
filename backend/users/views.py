@@ -1,9 +1,33 @@
 from rest_framework.response import Response
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 from django.contrib.auth import authenticate
 from django.conf import settings
 from rest_framework import status
 from shared.views import PublicView
+
+
+class CookieTokenRefreshView(PublicView):
+    def post(self, request):
+        refresh_token = request.COOKIES.get("refresh_token")
+
+        if not refresh_token:
+            return Response({"detail": "No refresh token provided."}, status=401)
+
+        try:
+            refresh = RefreshToken(refresh_token)
+            access_token = str(refresh.access_token)
+            res = Response({"detail": "Access token refreshed."}, status=200)
+            res.set_cookie(
+                key="access_token",
+                value=access_token,
+                httponly=True,
+                secure=settings.COOKIE_SECURE,
+                samesite="Strict",
+                max_age=15 * 60,
+            )
+            return res
+        except TokenError:
+            return Response({"detail": "Invalid refresh token."}, status=401)
 
 
 class LoginView(PublicView):
