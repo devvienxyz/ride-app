@@ -1,5 +1,6 @@
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
+import { EmailInput, PasswordInput, BrandButton, BrandHeader1, Header2, SubHeader, ErrorDiv } from "@components/ui";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -22,29 +23,25 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleLogin} className="bg-blue-50 flex flex-col w-full p-8 border border-none rounded">
-      <h1 className="brand text-6xl mb-8 text-center">ride</h1>
-      <h2 className="text-2xl text-center mb-6">Sign in</h2>
-      <h2 className="text-md mb-4 font-light">Sign in with your email address</h2>
-      <input
-        type="email"
+      <BrandHeader1>ride</BrandHeader1>
+
+      <Header2>Sign in</Header2>
+
+      <SubHeader>Sign in with your email address</SubHeader>
+
+      <EmailInput
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
-        className="block w-full mb-2 p-2 border rounded"
-      />
-      <input
-        type="password"
+        required />
+
+      <PasswordInput
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        required
-        className="block w-full mb-2 p-2 border rounded"
-      />
-      {error && <div className="font-light text-md text-red-600 mb-2">{error}</div>}
-      <button type="submit" className="brand w-full bg-blue-600 text-xl text-white rounded mt-4 py-4">
-        Sign in
-      </button>
+        required />
+
+      {error && <ErrorDiv>{error}</ErrorDiv>}
+
+      <BrandButton type="submit">Sign in</BrandButton>
     </form>
   );
 }
