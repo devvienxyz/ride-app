@@ -2,14 +2,14 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from rest_framework import status
-from rest_framework.views import APIView
+from shared.views import PublicView
 
 
-class LoginView(APIView):
+class LoginView(PublicView):
     def post(self, request):
         email = request.data.get("email")
         password = request.data.get("password")
-        user = authenticate(request, username=email, password=password)
+        user = authenticate(request, email=email, password=password)
 
         if user is not None:
             refresh = RefreshToken.for_user(user)
@@ -35,7 +35,7 @@ class LoginView(APIView):
         return Response({"detail": "Invalid credentials"}, status=401)
 
 
-class LogoutView(APIView):
+class LogoutView(PublicView):
     def post(self, request):
         response = Response({"message": "Logged out"}, status=200)
         response.delete_cookie("access_token")
