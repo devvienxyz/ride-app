@@ -1,6 +1,7 @@
+import useStore from "@/store"
+
 export default function Rides() {
-  const { rides } = useStore((state) => state)
-  const { setRides } = useStore((state) => state)
+  const { rides, setRides } = useStore((state) => state)
 
   return (
     <div>

@@ -17,8 +17,15 @@ const ErrorDiv = ({ children }) => (
   <div className="font-light text-md text-red-600 mb-2">{children}</div>
 )
 
-const BrandLink = ({ children, ...props }) => (
-  <Link className="brand text-blue-800 underline" {...props}>{children}</Link>
+const AppLink = ({ children, addlClasses = "", underline = false, ...props }) => (
+  <Link className={`text-blue-800 ${underline ? "underline" : ""} ${addlClasses}`} {...props}>
+    {children}
+  </Link>
 )
 
-export { BrandHeader1, Header2, SubHeader, ErrorDiv, BrandLink }
+const BrandLink = ({ children, addlClasses = "", ...props }) => (
+  <AppLink addlClasses={`brand ${addlClasses}`} {...props}>{children}</AppLink>
+)
+
+
+export { BrandHeader1, Header2, SubHeader, ErrorDiv, AppLink, BrandLink }

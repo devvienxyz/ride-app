@@ -1,8 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
 import { EmailInput, PasswordInput, BrandButton, BrandHeader1, Header2, SubHeader, ErrorDiv, BrandLink } from "@components/ui";
+import { useNavigate } from "react-router";
+import useStore from "@/store"
 
 export default function LoginForm() {
+  const navigate = useNavigate();
+  const { setUser } = useStore((state) => state)
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -12,12 +17,13 @@ export default function LoginForm() {
     setError(null);
 
     try {
-      const res = await axios.post("/api/login/", { email, password });
-      localStorage.setItem("access_token", res.data.access);
-      localStorage.setItem("refresh_token", res.data.refresh);
-      // Redirect or update UI
+      const res = await axios.post("/api/login/", { email, password }, { withCredentials: true });
+      const { first_name } = res.data;
+      setUser({ email, first_name })
+      navigate("/rides")
     } catch (err) {
       setError("Invalid credentials");
+      setUser(null)
     }
   };
 
@@ -45,7 +51,7 @@ export default function LoginForm() {
 
       <div className="mt-4">
         <SubHeader>
-          Don't have an account? <BrandLink to={"/#"}>Sign up now</BrandLink>
+          Don't have an account? <BrandLink underline={true} to={"/#"}>Sign up now</BrandLink>
         </SubHeader>
       </div>
     </form>
