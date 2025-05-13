@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
+from django.conf import settings
 from rest_framework import status
 from shared.views import PublicView
 
@@ -19,7 +20,7 @@ class LoginView(PublicView):
                 key="access_token",
                 value=str(refresh.access_token),
                 httponly=True,
-                secure=True,
+                secure=settings.COOKIE_SECURE,
                 samesite="Strict",
                 max_age=15 * 60,
             )
@@ -27,7 +28,7 @@ class LoginView(PublicView):
                 key="refresh_token",
                 value=str(refresh),
                 httponly=True,
-                secure=True,
+                secure=settings.COOKIE_SECURE,
                 samesite="Strict",
                 max_age=7 * 24 * 60 * 60,
             )

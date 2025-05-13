@@ -5,7 +5,9 @@ from users.models import User
 
 @extend_schema_serializer(
     examples=[
-        OpenApiExample("User example", value={"id_user": 1, "first_name": "johndoe", "email": "john@example.com"})
+        OpenApiExample(
+            "User example", value={"id_user": 1, "role": "rider", "first_name": "johndoe", "email": "john@example.com"}
+        )
     ]
 )
 class UserSerializer(serializers.ModelSerializer):
