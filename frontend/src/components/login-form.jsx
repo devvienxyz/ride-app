@@ -1,8 +1,8 @@
-import axios from "axios";
 import { useState } from "react";
-import { EmailInput, PasswordInput, BrandButton, BrandHeader1, Header2, SubHeader, ErrorDiv, BrandLink } from "@components/ui";
 import { useNavigate } from "react-router";
 import useStore from "@/store"
+import axiosInstance from "@/axios"
+import { EmailInput, PasswordInput, BrandButton, BrandHeader1, Header2, SubHeader, ErrorDiv, BrandLink } from "@components/ui";
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export default function LoginForm() {
     setError(null);
 
     try {
-      const res = await axios.post("/api/login/", { email, password }, { withCredentials: true });
+      const res = await axiosInstance.post("/login/", { email, password }, { withCredentials: true });
       const { first_name } = res.data;
       setUser({ email, first_name })
       navigate("/rides")
