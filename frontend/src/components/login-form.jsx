@@ -41,7 +41,7 @@ export default function LoginForm() {
         required
         className="block w-full mb-2 p-2 border rounded"
       />
-      {error && <div className="text-red-600 mb-2">{error}</div>}
+      {error && <div className="font-light text-md text-red-600 mb-2">{error}</div>}
       <button type="submit" className="brand w-full bg-blue-600 text-xl text-white rounded mt-4 py-4">
         Sign in
       </button>
