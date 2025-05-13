@@ -1,19 +1,24 @@
-const EmailInput = (props) => (
+const BaseInput = (props) => (
   <input
+    className="block w-full mb-2 px-2 py-4 text-xl placeholder-gray-400 border rounded"
+    {...props}
+  />
+)
+
+const EmailInput = (props) => (
+  <BaseInput
     type="email"
     placeholder="Email"
-    className="block w-full mb-2 p-2 border rounded"
     {...props}
   />
 );
 
 const PasswordInput = (props) => (
-  <input
+  <BaseInput
     type="password"
     placeholder="Password"
-    className="block w-full mb-2 p-2 border rounded"
     {...props}
   />
 )
 
-export { EmailInput, PasswordInput }
+export { BaseInput, EmailInput, PasswordInput }

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { EmailInput, PasswordInput, BrandButton, BrandHeader1, Header2, SubHeader, ErrorDiv } from "@components/ui";
+import { EmailInput, PasswordInput, BrandButton, BrandHeader1, Header2, SubHeader, ErrorDiv, BrandLink } from "@components/ui";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -42,6 +42,12 @@ export default function LoginForm() {
       {error && <ErrorDiv>{error}</ErrorDiv>}
 
       <BrandButton type="submit">Sign in</BrandButton>
+
+      <div className="mt-4">
+        <SubHeader>
+          Don't have an account? <BrandLink to={"/#"}>Sign up now</BrandLink>
+        </SubHeader>
+      </div>
     </form>
   );
 }

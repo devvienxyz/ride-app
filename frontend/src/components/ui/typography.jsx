@@ -1,3 +1,6 @@
+import { Link } from "react-router";
+
+
 const BrandHeader1 = ({ children }) => (
   <h1 className="brand text-6xl mb-8 text-center">{children}</h1>
 )
@@ -14,4 +17,8 @@ const ErrorDiv = ({ children }) => (
   <div className="font-light text-md text-red-600 mb-2">{children}</div>
 )
 
-export { BrandHeader1, Header2, SubHeader, ErrorDiv }
+const BrandLink = ({ children, ...props }) => (
+  <Link className="brand text-blue-800 underline" {...props}>{children}</Link>
+)
+
+export { BrandHeader1, Header2, SubHeader, ErrorDiv, BrandLink }
