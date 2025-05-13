@@ -1,6 +1,16 @@
 import { useEffect } from "react";
-import axiosInstance from "@/axios.js"
 import useStore from "@/store"
+import axiosInstance from "@/axios"
+import { Table } from "@components/ui";
+
+const RIDE_TABLE_HEADERS = [
+  "Status",
+  "Rider",
+  "Driver",
+  "Pickup Location",
+  "Dropoff Location",
+  "Pickup Time",
+]
 
 export default function Rides() {
   const { rides, setRides } = useStore((state) => state)
@@ -21,18 +31,12 @@ export default function Rides() {
   }, [setRides]);
 
   return (
-    <div className="py-6 w-full lg:max-w-1/2 flex flex-row justify-center">
-      <h1>List of rides</h1>
-
-      <table>
-        <tbody>
-          {!rides.length && (
-            // TODO: spin when fetching
-            // <tr><td colSpan="4"><Spinner /></td></tr>
-            <tr><td colSpan="4">Empty</td></tr>
-          )}
-        </tbody>
-      </table>
+    <div className="w-full flex flex-row justify-center self-center">
+      <div className="py-6 w-full xl:max-w-1/2 gap-6">
+        <div className="flex flex-row justify-center w-full">
+          <Table headers={RIDE_TABLE_HEADERS} data={rides} />
+        </div>
+      </div>
     </div>
   )
 }
