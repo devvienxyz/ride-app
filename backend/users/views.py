@@ -1,21 +1,43 @@
-from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from django.utils.translation import gettext_lazy as _
-from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import authenticate
+from rest_framework import status
+from rest_framework.views import APIView
 
 
-class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
-    default_error_messages = {
-        "invalid_credentials": _("Invalid email or password."),
-    }
+class LoginView(APIView):
+    def post(self, request):
+        email = request.data.get("email")
+        password = request.data.get("password")
+        user = authenticate(request, username=email, password=password)
 
-    def validate(self, attrs):
-        try:
-            data = super().validate(attrs)
-            return data
-        except AuthenticationFailed:
-            raise AuthenticationFailed(self.error_messages["invalid_credentials"])
+        if user is not None:
+            refresh = RefreshToken.for_user(user)
+            res = Response({"first_name": user.first_name}, status=status.HTTP_200_OK)
+            # Set tokens in cookies
+            res.set_cookie(
+                key="access_token",
+                value=str(refresh.access_token),
+                httponly=True,
+                secure=True,
+                samesite="Strict",
+                max_age=15 * 60,
+            )
+            res.set_cookie(
+                key="refresh_token",
+                value=str(refresh),
+                httponly=True,
+                secure=True,
+                samesite="Strict",
+                max_age=7 * 24 * 60 * 60,
+            )
+            return res
+        return Response({"detail": "Invalid credentials"}, status=401)
 
 
-class CustomTokenObtainPairView(TokenObtainPairView):
-    serializer_class = CustomTokenObtainPairSerializer
+class LogoutView(APIView):
+    def post(self, request):
+        response = Response({"message": "Logged out"}, status=200)
+        response.delete_cookie("access_token")
+        response.delete_cookie("refresh_token")
+        return response
