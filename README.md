@@ -22,38 +22,17 @@ A full-stack ride-sharing application built with Django (backend), Vite + React 
 
 ## Quick Start
 
-### With Docker (recommended)
+### 1. Set up environment variables
 
-Development
+Create a copy of `backend/.env.template` and rename the new file to `.env`.
+
+Change the environment values accordingly.
+
+### 2. Build the docker containers
 
 ```bash
+# run on development mode
 ./docker.sh up-build dev
-```
-
-Production
-
-```bash
-./docker.sh up-build prod
-```
-
-## Manual Setup (dev mode only)
-
-If running both apps manually,
-
-```bash
-cd backend
-python3.12 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-pip install -r requirements-dev.txt
-```
-
-Frontend runs with
-
-```bash
-cd frontend
-npm ci
-npm run dev
 ```
 
 ## Testing
@@ -67,8 +46,6 @@ tox -- backend/ride/tests/test_views.py::test_rides_accessible_to_admin_only
 
 # run only the unit test, no lint
 tox -e py12 -- backend/ride/tests/test_views.py::test_rides_accessible_to_admin_only
-
-tox -e py12 -- backend/users/tests/test_views.py::test_login_success
 
 # Tracebacks
 # note: the -- separates pytest args from tox args
