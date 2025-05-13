@@ -2,6 +2,7 @@ import axios from "axios";
 import useStore from "@/store"
 import { LeanButton } from "./buttons"
 import { BrandLink } from "./typography";
+import axiosInstance from "@/axios";
 
 const NavBar = () => {
   const { logout } = useStore((state) => state)
@@ -10,7 +11,7 @@ const NavBar = () => {
     e.preventDefault();
 
     try {
-      await axios.post("/api/logout/", {}, { withCredentials: true });
+      await axiosInstance.post("/logout/", {}, { withCredentials: true });
       logout()
       navigate("/")
     } catch (err) { }
