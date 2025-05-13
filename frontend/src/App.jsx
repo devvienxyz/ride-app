@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router"
 import { Home, Rides, RideDetail, NotFound, ErrorBoundary } from "@pages"
-import { RequireAuth, Layout } from "@components"
+import { RequireAuth } from "@components"
+import { Layout } from "@components/ui"
 
 export default function App() {
   return (
