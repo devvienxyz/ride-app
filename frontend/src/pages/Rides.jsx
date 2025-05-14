@@ -12,6 +12,21 @@ const RIDE_TABLE_HEADERS = [
   "Pickup Time",
 ]
 
+function renderTableRow(rowData, rowIdx) {
+  const { status, rider, driver, pickup_loc, dropoff_loc, pickup_time } = rowData;
+
+  return (
+    <tr key={`ride-${rowIdx}`}>
+      <td className="whitespace-nowrap">{status}</td>
+      <td className="whitespace-nowrap">{rider}</td>
+      <td className="whitespace-nowrap">{driver}</td>
+      <td className="whitespace-nowrap">{pickup_loc}</td>
+      <td className="whitespace-nowrap">{dropoff_loc}</td>
+      <td className="whitespace-nowrap">{pickup_time}</td>
+    </tr>
+  )
+}
+
 export default function Rides() {
   const { rides, setRides } = useStore((state) => state)
 
@@ -34,7 +49,7 @@ export default function Rides() {
     <div className="w-full flex flex-row justify-center self-center">
       <div className="py-6 w-full xl:max-w-1/2 gap-6">
         <div className="flex flex-row justify-center w-full">
-          <Table headers={RIDE_TABLE_HEADERS} data={rides} />
+          <Table resourceName="rides" headers={RIDE_TABLE_HEADERS} data={rides} rowRenderer={renderTableRow} />
         </div>
       </div>
     </div>
