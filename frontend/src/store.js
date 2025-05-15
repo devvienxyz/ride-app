@@ -3,7 +3,12 @@ import { persist } from "zustand/middleware"
 
 const initialState = {
   user: null,
-  rides: [],
+  rides: {
+    "count": 0, "next": null, "previous": null, "results": []
+  },
+  rideEvents: {
+    "count": 0, "next": null, "previous": null, "results": []
+  },
 }
 
 const useStore = create(
@@ -13,6 +18,7 @@ const useStore = create(
       setUser: (user) => set({ user }),
       logout: () => set(initialState),
       setRides: (rides) => set({ rides }),
+      setRideEvents: (rideEvents) => set({ rideEvents }),
     }),
     {}
   )
