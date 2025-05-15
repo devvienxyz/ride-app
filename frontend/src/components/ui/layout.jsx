@@ -31,7 +31,7 @@ const NavBar = () => {
 }
 export default function Layout({ children }) {
   const { user } = useStore((state) => state)
-  const addlClasses = !!user ? "mt-2" : "";
+  const addlClasses = !!user ? "" : "overflow-y-hidden";
 
   return (
     <div className={`pb-24 w-screen h-screen overflow-x-hidden mx-auto text-blue-950 bg-blue-50 ${addlClasses}`}>
