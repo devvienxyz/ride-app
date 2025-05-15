@@ -65,6 +65,13 @@ function TableFooter({ paginationCtx }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  const handlePreviousPage = () => {
+    console.log("prev page")
+  }
+  const handleNextPage = () => {
+    console.log("next page")
+  }
+
   return (
     <div className="flex items-center justify-between p-4 border-t border-blue-50 bg-slate-50">
       <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-950">
@@ -74,11 +81,13 @@ function TableFooter({ paginationCtx }) {
       {!(next === null && previous === null) && (
         <div className="flex gap-2">
           <button
+            onClick={handlePreviousPage}
             className="select-none rounded-lg border border-blue-950 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             type="button">
             Previous
           </button>
           <button
+            onClick={handleNextPage}
             className="select-none rounded-lg border border-blue-950 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             type="button">
             Next
@@ -101,16 +110,8 @@ function TableHeader({ children }) {
 
 export default function Table({ searchBarCtx, resourceName, headers, paginationCtx, rowRenderer, emptyMsg = "Empty" }) {
   const { count, next, previous, results } = paginationCtx;
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const isValidArray = Array.isArray(results);
 
-  const handlePreviousPage = () => {
-    console.log("prev page")
-  }
-  const handleNextPage = () => {
-    console.log("next page")
-  }
 
   return (
     <div className="shadow-md bg-slate-50 border rounded-lg border-transparent pt-4">
@@ -141,75 +142,6 @@ export default function Table({ searchBarCtx, resourceName, headers, paginationC
                 </TableCell>
               </TableRow>
             )}
-
-            {/* <TableRow>
-              <td className="p-4 border-b border-slate-200 py-5">
-                <p className="block font-semibold text-sm text-slate-800">INV-1001</p>
-              </td>
-              <td className="p-4 border-b border-slate-200 py-5">
-                <p className="text-sm text-slate-500">John Doe</p>
-              </td>
-              <td className="p-4 border-b border-slate-200 py-5">
-                <p className="text-sm text-slate-500">$1,200.00</p>
-              </td>
-              <td className="p-4 border-b border-slate-200 py-5">
-                <p className="text-sm text-slate-500">2024-08-01</p>
-              </td>
-              <td className="p-4 border-b border-slate-200 py-5">
-                <p className="text-sm text-slate-500">2024-08-15</p>
-              </td>
-            </TableRow>
-            <TableRow>
-              <td className="p-4 border-b border-slate-200 py-5">
-                <p className="block font-semibold text-sm text-slate-800">INV-1002</p>
-              </td>
-              <td className="p-4 border-b border-slate-200 py-5">
-                <p className="text-sm text-slate-500">Jane Smith</p>
-              </td>
-              <td className="p-4 border-b border-slate-200 py-5">
-                <p className="text-sm text-slate-500">$850.00</p>
-              </td>
-              <td className="p-4 border-b border-slate-200 py-5">
-                <p className="text-sm text-slate-500">2024-08-05</p>
-              </td>
-              <td className="p-4 border-b border-slate-200 py-5">
-                <p className="text-sm text-slate-500">2024-08-20</p>
-              </td>
-            </TableRow>
-            <TableRow>
-              <td className="p-4 border-b border-slate-200 py-5">
-                <p className="block font-semibold text-sm text-slate-800">INV-1003</p>
-              </td>
-              <td className="p-4 border-b border-slate-200 py-5">
-                <p className="text-sm text-slate-500">Acme Corp</p>
-              </td>
-              <td className="p-4 border-b border-slate-200 py-5">
-                <p className="text-sm text-slate-500">$2,500.00</p>
-              </td>
-              <td className="p-4 border-b border-slate-200 py-5">
-                <p className="text-sm text-slate-500">2024-08-07</p>
-              </td>
-              <td className="p-4 border-b border-slate-200 py-5">
-                <p className="text-sm text-slate-500">2024-08-21</p>
-              </td>
-            </TableRow>
-            <TableRow>
-              <td className="p-4 py-5">
-                <p className="block font-semibold text-sm text-slate-800">INV-1004</p>
-              </td>
-              <td className="p-4 py-5">
-                <p className="text-sm text-slate-500">Global Inc</p>
-              </td>
-              <td className="p-4 py-5">
-                <p className="text-sm text-slate-500">$4,750.00</p>
-              </td>
-              <td className="p-4 py-5">
-                <p className="text-sm text-slate-500">2024-08-10</p>
-              </td>
-              <td className="p-4 py-5">
-                <p className="text-sm text-slate-500">2024-08-25</p>
-              </td>
-            </TableRow> */}
           </tbody>
 
         </table>
@@ -218,58 +150,5 @@ export default function Table({ searchBarCtx, resourceName, headers, paginationC
     </div>
   )
 }
-
-
-function LegacyTable({ resourceName, headers, paginationCtx, rowRenderer, emptyMsg = "Empty" }) {
-  const { count, next, previous, results } = paginationCtx;
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const isValidArray = Array.isArray(results);
-
-  const handlePreviousPage = () => {
-    console.log("prev page")
-  }
-  const handleNextPage = () => {
-    console.log("next page")
-  }
-
-  return (
-    <div className="w-full overflow-auto rounded-lg border border-blue-200">
-      <div className="w-full table table-auto xl:table-fixed border-collapse border border-gray-400 bg-blue-950 text-sm">
-        <div className="table-header-group">
-          <div className="table-row">
-            {headers.map((label, labelIdx) => (
-              <div
-                key={`${resourceName}-table-label-${labelIdx}`}
-                className="min-w-[150px] table-cell px-1 py-5 border border-blue-100 text-white font-bold whitespace-nowrap font-medium text-center">{label}</div>
-            ))}
-          </div>
-        </div>
-        <div className="table-row-group">
-          {isValidArray && results.map((rowData, rowIdx) => rowRenderer(rowData, rowIdx))}
-
-          {!isValidArray || !count && (
-            // TODO: spin when fetching
-            // <tr><td colSpan="4"><Spinner /></td></tr>
-            <div className="table-row">
-              <TableCell addlClasses={"text-center"} colSpan={headers.length}>
-                {emptyMsg}
-              </TableCell>
-            </div>
-          )}
-        </div>
-        <div className="table-footer-group bg-blue-100 w-full">
-          <div className="flex flex-row w-full">
-            {/* <TableCell addlClasses="flex flex-row justify-right w-full" colSpan={headers.length}> */}
-            <ChevronLeftButton addlClasses="" onClick={handlePreviousPage} />
-            <span>Page {currentPage} of {totalPages}</span>
-            <ChevronRightButton addlClasses="" onClick={handleNextPage} />
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 
 export { TableCell, TableRow }
