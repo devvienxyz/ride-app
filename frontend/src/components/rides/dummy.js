@@ -20,7 +20,7 @@ function dummyRideEventListGenerator(count = 43) {
   return Array.from({ length: count }).map((_, idx) => {
     return (
       {
-        "id_ride_event": idx++,
+        "id_ride_event": idx + 1,
         "id_ride": 1,
         "description": "Driver arrived at pickup location.",
         "created_at": "2025-05-13T09:25:00Z",

@@ -12,11 +12,7 @@ function TableCell({ children, firstCell = false, addlClasses = "", ...props }) 
   const firstCellAddlClasses = "block font-semibold"
 
   return (
-    // <div className={`table-col-span-6 table-cell bg-blue-100 border border-blue-50 whitespace-nowrap px-1 py-4 ${addlClasses}`} {...props}>
-    //   {children}
-    // </div>
-
-    <td className="p-4 border-b border-slate-200 py-5" {...props}>
+    <td className={`p-4 border-b border-slate-200 py-5 ${addlClasses}`} {...props}>
       <p className={`text-sm text-slate-800 ${firstCell ? firstCellAddlClasses : ""}`}>{children}</p>
     </td>
   )
@@ -27,7 +23,7 @@ function TableRow({ children, addlClasses = "", ...props }) {
     // <div className={`table-row ${addlClasses}`}>
     //   {children}
     // </div>
-    <tr className="hover:bg-slate-50" {...props}>
+    <tr className={`hover:bg-slate-50 ${addlClasses}`} {...props}>
       {children}
     </tr>
   )
@@ -130,32 +126,6 @@ export default function Table({ searchBarCtx, resourceName, headers, paginationC
                   {label}
                 </TableHeader>
               ))}
-
-              {/* <th className="p-4 border-b border-slate-300 bg-slate-50">
-                <p className="block text-sm font-normal leading-none text-slate-500">
-                  Invoice Number
-                </p>
-              </th>
-              <th className="p-4 border-b border-slate-300 bg-slate-50">
-                <p className="block text-sm font-normal leading-none text-slate-500">
-                  Customer
-                </p>
-              </th>
-              <th className="p-4 border-b border-slate-300 bg-slate-50">
-                <p className="block text-sm font-normal leading-none text-slate-500">
-                  Amount
-                </p>
-              </th>
-              <th className="p-4 border-b border-slate-300 bg-slate-50">
-                <p className="block text-sm font-normal leading-none text-slate-500">
-                  Issued
-                </p>
-              </th>
-              <th className="p-4 border-b border-slate-300 bg-slate-50">
-                <p className="block text-sm font-normal leading-none text-slate-500">
-                  Due Date
-                </p>
-              </th> */}
             </tr>
           </thead>
           <tbody>
