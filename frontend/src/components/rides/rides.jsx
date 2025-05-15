@@ -53,7 +53,7 @@ export default function Rides() {
   return (
     <div className="w-full flex flex-row justify-center self-center">
       <div className="py-6 w-full xl:max-w-2/3 gap-6">
-        <div className="flex flex-row justify-center w-full">
+        <div className="">
           <Table
             searchBarCtx={{
               title: "Rides Overview",

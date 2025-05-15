@@ -31,7 +31,7 @@ function TableSearchBar({ searchBarCtx, ...props }) {
     <div className="w-full flex justify-between items-center mb-3 mt-1 pl-3">
       <div>
         <h3 className="text-lg font-semibold text-slate-800">{title}</h3>
-        <p className="text-slate-500">{subTitle}</p>
+        <p className="text-slate-500 text-sm wrap">{subTitle}</p>
       </div>
       <div className="ml-3">
         <div className="w-full max-w-sm min-w-[200px] relative">
