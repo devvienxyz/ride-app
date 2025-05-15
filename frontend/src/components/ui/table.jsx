@@ -1,14 +1,23 @@
 import { useState } from "react";
 import { ChevronLeftButton, ChevronRightButton, LeanButton } from "./buttons";
 
-function TableCell({ children, addlClasses = "", ...props }) {
+function TableCellText({ children, addlClasses = "", ...props }) {
+  return (
+    <p className="text-sm text-slate-800">{children}</p>
+  )
+}
+
+
+function TableCell({ children, firstCell = false, addlClasses = "", ...props }) {
+  const firstCellAddlClasses = "block font-semibold"
+
   return (
     // <div className={`table-col-span-6 table-cell bg-blue-100 border border-blue-50 whitespace-nowrap px-1 py-4 ${addlClasses}`} {...props}>
     //   {children}
     // </div>
 
     <td className="p-4 border-b border-slate-200 py-5" {...props}>
-      <p className="block font-semibold text-sm text-slate-800">{children}</p>
+      <p className={`text-sm text-slate-800 ${firstCell ? firstCellAddlClasses : ""}`}>{children}</p>
     </td>
   )
 }
@@ -33,11 +42,11 @@ function TableSearchBar({ searchBarCtx, ...props }) {
         <h3 className="text-lg font-semibold text-slate-800">{title}</h3>
         <p className="text-slate-500 text-sm wrap">{subTitle}</p>
       </div>
-      <div className="ml-3">
+      <div className="ml-3 pr-3">
         <div className="w-full max-w-sm min-w-[200px] relative">
           <div className="relative">
             <input
-              className="bg-white w-full pr-11 h-10 pl-3 py-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md"
+              className="bg-white w-full pr-11 h-10 pl-3 py-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-blue-700 shadow-sm focus:shadow-md"
               placeholder={searchPlaceholder}
             />
             <button
@@ -55,6 +64,45 @@ function TableSearchBar({ searchBarCtx, ...props }) {
   )
 }
 
+function TableFooter({ paginationCtx }) {
+  const { count, next, previous, results } = paginationCtx;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  return (
+    <div className="flex items-center justify-between p-4 border-t border-blue-50 bg-slate-50">
+      <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-950">
+        Page {currentPage} of {totalPages}
+      </p>
+
+      {!(next === null && previous === null) && (
+        <div className="flex gap-2">
+          <button
+            className="select-none rounded-lg border border-blue-950 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            type="button">
+            Previous
+          </button>
+          <button
+            className="select-none rounded-lg border border-blue-950 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            type="button">
+            Next
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function TableHeader({ children }) {
+  return (
+    <th className="p-4 border-b border-slate-300 bg-slate-50">
+      <p className="block text-sm font-normal leading-none text-slate-500">
+        {children}
+      </p>
+    </th>
+  )
+}
+
 export default function Table({ searchBarCtx, resourceName, headers, paginationCtx, rowRenderer, emptyMsg = "Empty" }) {
   const { count, next, previous, results } = paginationCtx;
   const [currentPage, setCurrentPage] = useState(1);
@@ -69,14 +117,21 @@ export default function Table({ searchBarCtx, resourceName, headers, paginationC
   }
 
   return (
-    <div>
+    <div className="shadow-md bg-slate-50 border rounded-lg border-transparent pt-4">
       <TableSearchBar searchBarCtx={searchBarCtx} />
 
       <div className="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
         <table className="w-full text-left table-auto min-w-max">
           <thead>
             <tr>
-              <th className="p-4 border-b border-slate-300 bg-slate-50">
+              {headers.map((label, labelIdx) => (
+                <TableHeader
+                  key={`${resourceName}-table-label-${labelIdx}`}>
+                  {label}
+                </TableHeader>
+              ))}
+
+              {/* <th className="p-4 border-b border-slate-300 bg-slate-50">
                 <p className="block text-sm font-normal leading-none text-slate-500">
                   Invoice Number
                 </p>
@@ -100,11 +155,24 @@ export default function Table({ searchBarCtx, resourceName, headers, paginationC
                 <p className="block text-sm font-normal leading-none text-slate-500">
                   Due Date
                 </p>
-              </th>
+              </th> */}
             </tr>
           </thead>
           <tbody>
-            <tr className="hover:bg-slate-50">
+
+            {isValidArray && results.map((rowData, rowIdx) => rowRenderer(rowData, rowIdx))}
+
+            {!isValidArray || !count && (
+              // TODO: spin when fetching
+              // <tr><td colSpan="4"><Spinner /></td></tr>
+              <TableRow>
+                <TableCell>
+                  {emptyMsg}
+                </TableCell>
+              </TableRow>
+            )}
+
+            {/* <TableRow>
               <td className="p-4 border-b border-slate-200 py-5">
                 <p className="block font-semibold text-sm text-slate-800">INV-1001</p>
               </td>
@@ -120,8 +188,8 @@ export default function Table({ searchBarCtx, resourceName, headers, paginationC
               <td className="p-4 border-b border-slate-200 py-5">
                 <p className="text-sm text-slate-500">2024-08-15</p>
               </td>
-            </tr>
-            <tr className="hover:bg-slate-50">
+            </TableRow>
+            <TableRow>
               <td className="p-4 border-b border-slate-200 py-5">
                 <p className="block font-semibold text-sm text-slate-800">INV-1002</p>
               </td>
@@ -137,8 +205,8 @@ export default function Table({ searchBarCtx, resourceName, headers, paginationC
               <td className="p-4 border-b border-slate-200 py-5">
                 <p className="text-sm text-slate-500">2024-08-20</p>
               </td>
-            </tr>
-            <tr className="hover:bg-slate-50">
+            </TableRow>
+            <TableRow>
               <td className="p-4 border-b border-slate-200 py-5">
                 <p className="block font-semibold text-sm text-slate-800">INV-1003</p>
               </td>
@@ -154,8 +222,8 @@ export default function Table({ searchBarCtx, resourceName, headers, paginationC
               <td className="p-4 border-b border-slate-200 py-5">
                 <p className="text-sm text-slate-500">2024-08-21</p>
               </td>
-            </tr>
-            <tr className="hover:bg-slate-50">
+            </TableRow>
+            <TableRow>
               <td className="p-4 py-5">
                 <p className="block font-semibold text-sm text-slate-800">INV-1004</p>
               </td>
@@ -171,10 +239,12 @@ export default function Table({ searchBarCtx, resourceName, headers, paginationC
               <td className="p-4 py-5">
                 <p className="text-sm text-slate-500">2024-08-25</p>
               </td>
-            </tr>
+            </TableRow> */}
           </tbody>
+
         </table>
       </div>
+      <TableFooter paginationCtx={paginationCtx} />
     </div>
   )
 }

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import useStore from "@/store"
 import axiosInstance from "@/axios"
 import { Table, TableCell, TableRow } from "@components/ui";
+import { DUMMY_RIDE_EVENTS } from "./dummy";
 
 const TABLE_HEADERS = [
   "Ride Event ID",
@@ -15,7 +16,7 @@ function renderTableRow(rowData, idx) {
 
   return (
     <TableRow key={`ride-event-${id_ride_event}`}>
-      <TableCell>{id_ride_event}</TableCell>
+      <TableCell firstCell>{id_ride_event}</TableCell>
       <TableCell>{id_ride}</TableCell>
       <TableCell>{description}</TableCell>
       <TableCell>{created_at}</TableCell>
@@ -36,10 +37,12 @@ export default function RideEvents() {
           previous: data?.previous || null,
           results: data?.results || [],
         }
-        setRideEvents(ctx);
+        // setRideEvents(ctx);
+        setRideEvents(DUMMY_RIDE_EVENTS);
       } catch (error) {
         // console.error("Error fetching ride events", error);
         // Handle error (show error message)
+        setRideEvents(DUMMY_RIDE_EVENTS);
       }
     };
 

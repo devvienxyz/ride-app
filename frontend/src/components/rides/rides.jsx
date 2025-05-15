@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import useStore from "@/store"
 import axiosInstance from "@/axios"
 import { Table, TableCell, TableRow } from "@components/ui";
+import { DUMMY_RIDES } from "./dummy";
 
 const RIDE_TABLE_HEADERS = [
   "Status",
@@ -13,15 +14,28 @@ const RIDE_TABLE_HEADERS = [
 ]
 
 function renderTableRow(rowData, rowIdx) {
-  const { status, rider, driver, pickup_loc, dropoff_loc, pickup_time } = rowData;
+  const {
+    status,
+    id_rider,
+    id_driver,
+    pickup_latitude,
+    pickup_longitude,
+    dropoff_latitude,
+    dropoff_longitude,
+    pickup_time,
+  } = rowData;
 
   return (
     <TableRow key={`ride-${rowIdx}`}>
-      <TableCell>{status}</TableCell>
-      <TableCell>{rider}</TableCell>
-      <TableCell>{driver}</TableCell>
-      <TableCell>{pickup_loc}</TableCell>
-      <TableCell>{dropoff_loc}</TableCell>
+      <TableCell firstCell>{status}</TableCell>
+      <TableCell>{id_rider}</TableCell>
+      <TableCell>{id_driver}</TableCell>
+      <TableCell>
+        {pickup_latitude}, {pickup_longitude}
+      </TableCell>
+      <TableCell>
+        {dropoff_latitude}, {dropoff_longitude}
+      </TableCell>
       <TableCell>{pickup_time}</TableCell>
     </TableRow>
   )
@@ -40,7 +54,9 @@ export default function Rides() {
           previous: data?.previous || null,
           results: data?.results || [],
         }
-        setRides(ctx);
+
+        // setRides(ctx);
+        setRides(DUMMY_RIDES);
       } catch (error) {
         // console.error("Error fetching rides", error);
         // Handle error (show error message)
