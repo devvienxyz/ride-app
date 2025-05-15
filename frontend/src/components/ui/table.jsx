@@ -140,7 +140,7 @@ export default function Table({
               // TODO: spin when fetching
               // <tr><td colSpan="4"><Spinner /></td></tr>
               <TableRow>
-                <TableCell>
+                <TableCell addlClasses="text-center" colSpan={headers.length}>
                   {emptyMsg}
                 </TableCell>
               </TableRow>
