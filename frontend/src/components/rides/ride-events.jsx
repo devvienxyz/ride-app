@@ -54,7 +54,7 @@ export default function RideEvents() {
             searchBarCtx={{
               title: "Ride Events Log",
               subTitle: "Detailed timeline of events associated with each ride, including descriptions and timestamps.",
-              searchPlaceholder: "Search ride events by description or ride ID..."
+              searchPlaceholder: "Search ride events..."
             }}
             emptyMsg="No ride events found."
             resourceName="ride-events"

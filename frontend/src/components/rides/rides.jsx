@@ -58,7 +58,7 @@ export default function Rides() {
             searchBarCtx={{
               title: "Rides Overview",
               subTitle: "A summary of all ride records including status, participants, and route details.",
-              searchPlaceholder: "Search rides by status, driver, or rider..."
+              searchPlaceholder: "Search rides..."
             }}
             emptyMsg="No rides found."
             resourceName="rides"
