@@ -12,11 +12,11 @@ export default function Home() {
         <Login />
       ) : (
         <div className="flex flex-col">
-          <div className="py-12">
+          <div className="lg:py-6">
             <Rides />
           </div>
 
-          <div className="py-12">
+          <div className="lg:py-6">
             <RideEvents />
           </div>
         </div>
