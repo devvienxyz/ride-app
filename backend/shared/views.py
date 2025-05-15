@@ -3,6 +3,7 @@ from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from shared.permissions import IsAdminOrSuperuser
+from shared.authentication import CookieJWTAuthentication
 
 
 class PublicView(APIView):
@@ -14,7 +15,9 @@ class PublicView(APIView):
 
 class AdminLevelView(APIView):
     permission_classes = [IsAdminOrSuperuser]
+    authentication_classes = [CookieJWTAuthentication]
 
 
 class AdminLevelReadOnlyModelViewset(ReadOnlyModelViewSet):
     permission_classes = [IsAdminOrSuperuser]
+    authentication_classes = [CookieJWTAuthentication]
