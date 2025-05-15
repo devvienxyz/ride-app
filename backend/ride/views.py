@@ -1,4 +1,4 @@
-from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet
 from django.utils.timezone import now, timedelta
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
@@ -22,6 +22,10 @@ class RidesViewSet(ReadOnlyModelViewSet):
         return {**super().get_serializer_context(), "today_threshold": now() - timedelta(hours=24)}
 
 
-class RideEventsViewSet(ModelViewSet):
+class RideEventsViewSet(ReadOnlyModelViewSet):
     queryset = RideEvent.objects.all()
     serializer_class = RideEventSerializer
+    authentication_classes = [CookieJWTAuthentication]
+
+    def get_queryset(self):
+        return RideEvent.objects.all()
