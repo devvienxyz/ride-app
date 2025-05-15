@@ -1,11 +1,8 @@
-import { useState } from "react";
-
 function TableCellText({ children, addlClasses = "", ...props }) {
   return (
     <p className="text-sm text-slate-800">{children}</p>
   )
 }
-
 
 function TableCell({ children, firstCell = false, addlClasses = "", ...props }) {
   const firstCellAddlClasses = "block font-semibold"
@@ -56,17 +53,18 @@ function TableSearchBar({ searchBarCtx, ...props }) {
   )
 }
 
-function TableFooter({ paginationCtx }) {
-  const { count, next, previous, results } = paginationCtx;
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+function TableFooter({ count, next, previous, onPageChange }) {
+  const limit = 10, offset = 0;
+  const totalPages = Math.ceil(count / limit) || 1;
+  const currentPage = Math.floor(offset / limit) + 1;
 
   const handlePreviousPage = () => {
-    console.log("prev page")
-  }
+    if (currentPage > 1) onPageChange(currentPage - 1);
+  };
+
   const handleNextPage = () => {
-    console.log("next page")
-  }
+    if (currentPage < totalPages) onPageChange(currentPage + 1);
+  };
 
   return (
     <div className="flex items-center justify-between p-4 border-t border-blue-50 bg-slate-50">
@@ -78,13 +76,15 @@ function TableFooter({ paginationCtx }) {
         <div className="flex gap-2">
           <button
             onClick={handlePreviousPage}
-            className="select-none rounded-lg border border-blue-950 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            disabled={currentPage === 1}
+            className="select-none rounded-lg border border-blue-950 py-2 px-4 text-xs font-bold uppercase transition-all hover:opacity-75 focus:ring focus:ring-gray-300 disabled:opacity-50"
             type="button">
             Previous
           </button>
           <button
             onClick={handleNextPage}
-            className="select-none rounded-lg border border-blue-950 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            disabled={currentPage === totalPages}
+            className="select-none rounded-lg border border-blue-950 py-2 px-4 text-xs font-bold uppercase transition-all hover:opacity-75 focus:ring focus:ring-gray-300 disabled:opacity-50"
             type="button">
             Next
           </button>
@@ -104,10 +104,17 @@ function TableHeader({ children }) {
   )
 }
 
-export default function Table({ searchBarCtx, resourceName, headers, paginationCtx, rowRenderer, emptyMsg = "Empty" }) {
-  const { count, next, previous, results } = paginationCtx;
+export default function Table({
+  onPageChange,
+  searchBarCtx,
+  resourceName,
+  headers,
+  paginationCtx,
+  rowRenderer,
+  emptyMsg = "Empty"
+}) {
+  const { count, previous, next, results } = paginationCtx;
   const isValidArray = Array.isArray(results);
-
 
   return (
     <div className="shadow-md bg-slate-50 border rounded-lg border-transparent pt-4">
@@ -139,10 +146,15 @@ export default function Table({ searchBarCtx, resourceName, headers, paginationC
               </TableRow>
             )}
           </tbody>
-
         </table>
       </div>
-      <TableFooter paginationCtx={paginationCtx} />
+
+      <TableFooter
+        count={count}
+        previous={previous}
+        next={next}
+        onPageChange={onPageChange}
+      />
     </div>
   )
 }

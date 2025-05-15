@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import useStore from "@/store"
 import axiosInstance from "@/axios"
 import { Table, TableCell, TableRow } from "@components/ui";
-import { DUMMY_RIDES } from "./dummy";
 
 const RIDE_TABLE_HEADERS = [
   "Status",
@@ -44,6 +43,10 @@ function renderTableRow(rowData, rowIdx) {
 export default function Rides() {
   const { rides, setRides } = useStore((state) => state)
 
+  const onPageChange = (newPageNo) => {
+    console.log("newPageNo: ", newPageNo)
+  }
+
   useEffect(() => {
     const fetchRides = async () => {
       try {
@@ -55,8 +58,7 @@ export default function Rides() {
           results: data?.results || [],
         }
 
-        // setRides(ctx);
-        setRides(DUMMY_RIDES);
+        setRides(ctx);
       } catch (error) {
         // console.error("Error fetching rides", error);
         // Handle error (show error message)
@@ -71,6 +73,7 @@ export default function Rides() {
       <div className="py-6 w-full xl:max-w-2/3 gap-6">
         <div className="">
           <Table
+            onPageChange={onPageChange}
             searchBarCtx={{
               title: "Rides Overview",
               subTitle: "A summary of all ride records including status, participants, and route details.",
