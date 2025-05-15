@@ -34,7 +34,7 @@ export default function Layout({ children }) {
   const addlClasses = !!user ? "mt-2" : "";
 
   return (
-    <div className={`w-screen h-screen overflow-x-hidden mx-auto text-blue-950 bg-blue-50 ${addlClasses}`}>
+    <div className={`pb-24 w-screen h-screen overflow-x-hidden mx-auto text-blue-950 bg-blue-50 ${addlClasses}`}>
       {user && <NavBar />}
       {children}
     </div>
