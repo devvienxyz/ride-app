@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ChevronLeftButton, ChevronRightButton, LeanButton } from "./buttons";
 
 function TableCellText({ children, addlClasses = "", ...props }) {
   return (
@@ -20,9 +19,6 @@ function TableCell({ children, firstCell = false, addlClasses = "", ...props }) 
 
 function TableRow({ children, addlClasses = "", ...props }) {
   return (
-    // <div className={`table-row ${addlClasses}`}>
-    //   {children}
-    // </div>
     <tr className={`hover:bg-slate-50 ${addlClasses}`} {...props}>
       {children}
     </tr>
