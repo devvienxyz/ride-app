@@ -26,6 +26,10 @@ function renderTableRow(rowData, idx) {
 export default function RideEvents() {
   const { rideEvents, setRideEvents } = useStore((state) => state)
 
+  const onPageChange = (newPageNo) => {
+    console.log("newPageNo: ", newPageNo)
+  }
+
   useEffect(() => {
     const fetchRideEvents = async () => {
       try {
@@ -51,6 +55,7 @@ export default function RideEvents() {
       <div className="py-6 w-full xl:max-w-2/3 gap-6">
         <div className="">
           <Table
+            onPageChange={onPageChange}
             searchBarCtx={{
               title: "Ride Events Log",
               subTitle: "Detailed timeline of events associated with each ride, including descriptions and timestamps.",
