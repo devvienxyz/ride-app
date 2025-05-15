@@ -17,7 +17,7 @@ const NavBar = () => {
   }
 
   return (
-    <nav className="overflow-x-hidden absolute top-0 px-4 sm:px-12 py-4 w-full bg-white">
+    <nav className="overflow-x-hidden absolute top-0 px-4 sm:px-12 py-4 w-full bg-white sticky z-1">
       <ul className="sm:mx-12 flex flex-row justify-between">
         <li>
           <BrandLink addlClasses="text-2xl text-blue-950" to="/">ride</BrandLink>
@@ -31,7 +31,7 @@ const NavBar = () => {
 }
 export default function Layout({ children }) {
   const { user } = useStore((state) => state)
-  const addlClasses = !!user ? "mt-16" : "";
+  const addlClasses = !!user ? "mt-2" : "";
 
   return (
     <div className={`w-screen h-screen overflow-x-hidden mx-auto text-blue-950 bg-blue-50 ${addlClasses}`}>

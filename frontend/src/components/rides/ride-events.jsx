@@ -51,6 +51,12 @@ export default function RideEvents() {
       <div className="py-6 w-full xl:max-w-2/3 gap-6">
         <div className="flex flex-row justify-center w-full">
           <Table
+            searchBarCtx={{
+              title: "Ride Events Log",
+              subTitle: "Detailed timeline of events associated with each ride, including descriptions and timestamps.",
+              searchPlaceholder: "Search ride events by description or ride ID..."
+            }}
+            emptyMsg="No ride events found."
             resourceName="ride-events"
             headers={TABLE_HEADERS}
             paginationCtx={rideEvents}

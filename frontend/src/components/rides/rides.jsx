@@ -55,6 +55,12 @@ export default function Rides() {
       <div className="py-6 w-full xl:max-w-2/3 gap-6">
         <div className="flex flex-row justify-center w-full">
           <Table
+            searchBarCtx={{
+              title: "Rides Overview",
+              subTitle: "A summary of all ride records including status, participants, and route details.",
+              searchPlaceholder: "Search rides by status, driver, or rider..."
+            }}
+            emptyMsg="No rides found."
             resourceName="rides"
             headers={RIDE_TABLE_HEADERS}
             paginationCtx={rides}

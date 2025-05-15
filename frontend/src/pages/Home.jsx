@@ -1,21 +1,26 @@
-import LoginForm from "@components/login-form";
+import useStore from "@/store";
+import { Login } from "@components/auth";
+import { Rides, RideEvents } from "@components/rides";
 
-function Login() {
-  return (
-    <div className="bg-blue-800 w-full h-full flex justify-center">
-      <div className="self-center w-full max-w-11/12 sm:1/2 md:w-1/2 lg:min-w-1/3 lg:w-2/3 lg:max-w-2/5 xl:min-w-1/4 xl:w-1/3 xl:max-w-1/5">
-        <LoginForm />
-      </div>
-    </div >
-  )
-}
 
 export default function Home() {
+  const { user } = useStore((state) => state)
+
   return (
-    <div className="bg-blue-800 w-full h-full flex justify-center">
-      <div className="self-center w-full max-w-11/12 sm:1/2 md:w-1/2 lg:min-w-1/3 lg:w-2/3 lg:max-w-2/5 xl:min-w-1/4 xl:w-1/3 xl:max-w-1/5">
-        <LoginForm />
-      </div>
-    </div >
+    <div>
+      {!user ? (
+        <Login />
+      ) : (
+        <div className="flex flex-col">
+          <div className="py-12">
+            <Rides />
+          </div>
+
+          <div className="py-12">
+            <RideEvents />
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
