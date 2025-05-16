@@ -1,0 +1,443 @@
+[
+  {
+    "model": "ride.rideevent",
+    "pk": 1,
+    "fields": {
+      "id_ride": 1,
+      "description": "Driver arrived",
+      "created_at": "2025-05-16T14:27:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 2,
+    "fields": {
+      "id_ride": 1,
+      "description": "Passenger onboard",
+      "created_at": "2025-05-16T14:32:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 3,
+    "fields": {
+      "id_ride": 2,
+      "description": "Driver arrived",
+      "created_at": "2025-05-16T15:15:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 4,
+    "fields": {
+      "id_ride": 2,
+      "description": "Passenger onboard",
+      "created_at": "2025-05-16T15:20:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 5,
+    "fields": {
+      "id_ride": 3,
+      "description": "Driver arrived",
+      "created_at": "2025-05-16T14:32:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 6,
+    "fields": {
+      "id_ride": 3,
+      "description": "Passenger onboard",
+      "created_at": "2025-05-16T14:37:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 7,
+    "fields": {
+      "id_ride": 4,
+      "description": "En route to destination",
+      "created_at": "2025-05-16T14:30:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 8,
+    "fields": {
+      "id_ride": 4,
+      "description": "Arrived at destination",
+      "created_at": "2025-05-16T14:35:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 9,
+    "fields": {
+      "id_ride": 4,
+      "description": "Passenger dropped off",
+      "created_at": "2025-05-16T14:40:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 10,
+    "fields": {
+      "id_ride": 5,
+      "description": "Driver assigned",
+      "created_at": "2025-05-16T15:32:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 11,
+    "fields": {
+      "id_ride": 5,
+      "description": "Ride cancelled by rider",
+      "created_at": "2025-05-16T15:37:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 12,
+    "fields": {
+      "id_ride": 6,
+      "description": "Driver assigned",
+      "created_at": "2025-05-16T15:23:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 13,
+    "fields": {
+      "id_ride": 6,
+      "description": "En route to pickup",
+      "created_at": "2025-05-16T15:28:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 14,
+    "fields": {
+      "id_ride": 7,
+      "description": "En route to destination",
+      "created_at": "2025-05-16T15:41:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 15,
+    "fields": {
+      "id_ride": 7,
+      "description": "Arrived at destination",
+      "created_at": "2025-05-16T15:46:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 16,
+    "fields": {
+      "id_ride": 7,
+      "description": "Passenger dropped off",
+      "created_at": "2025-05-16T15:51:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 17,
+    "fields": {
+      "id_ride": 8,
+      "description": "Driver assigned",
+      "created_at": "2025-05-16T15:00:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 18,
+    "fields": {
+      "id_ride": 8,
+      "description": "Ride cancelled by rider",
+      "created_at": "2025-05-16T15:05:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 19,
+    "fields": {
+      "id_ride": 9,
+      "description": "Driver arrived",
+      "created_at": "2025-05-16T15:50:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 20,
+    "fields": {
+      "id_ride": 9,
+      "description": "Passenger onboard",
+      "created_at": "2025-05-16T15:55:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 21,
+    "fields": {
+      "id_ride": 10,
+      "description": "Driver assigned",
+      "created_at": "2025-05-16T15:44:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 22,
+    "fields": {
+      "id_ride": 10,
+      "description": "Ride cancelled by rider",
+      "created_at": "2025-05-16T15:49:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 23,
+    "fields": {
+      "id_ride": 11,
+      "description": "Driver assigned",
+      "created_at": "2025-05-16T15:04:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 24,
+    "fields": {
+      "id_ride": 11,
+      "description": "Ride cancelled by rider",
+      "created_at": "2025-05-16T15:09:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 25,
+    "fields": {
+      "id_ride": 12,
+      "description": "En route to destination",
+      "created_at": "2025-05-16T15:15:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 26,
+    "fields": {
+      "id_ride": 12,
+      "description": "Arrived at destination",
+      "created_at": "2025-05-16T15:20:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 27,
+    "fields": {
+      "id_ride": 12,
+      "description": "Passenger dropped off",
+      "created_at": "2025-05-16T15:25:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 28,
+    "fields": {
+      "id_ride": 13,
+      "description": "Driver assigned",
+      "created_at": "2025-05-16T15:49:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 29,
+    "fields": {
+      "id_ride": 13,
+      "description": "En route to pickup",
+      "created_at": "2025-05-16T15:54:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 30,
+    "fields": {
+      "id_ride": 14,
+      "description": "Driver assigned",
+      "created_at": "2025-05-16T15:23:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 31,
+    "fields": {
+      "id_ride": 14,
+      "description": "En route to pickup",
+      "created_at": "2025-05-16T15:28:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 32,
+    "fields": {
+      "id_ride": 15,
+      "description": "En route to destination",
+      "created_at": "2025-05-16T14:46:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 33,
+    "fields": {
+      "id_ride": 15,
+      "description": "Arrived at destination",
+      "created_at": "2025-05-16T14:51:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 34,
+    "fields": {
+      "id_ride": 15,
+      "description": "Passenger dropped off",
+      "created_at": "2025-05-16T14:56:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 35,
+    "fields": {
+      "id_ride": 16,
+      "description": "Driver assigned",
+      "created_at": "2025-05-16T15:22:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 36,
+    "fields": {
+      "id_ride": 16,
+      "description": "En route to pickup",
+      "created_at": "2025-05-16T15:27:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 37,
+    "fields": {
+      "id_ride": 17,
+      "description": "Driver assigned",
+      "created_at": "2025-05-16T14:53:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 38,
+    "fields": {
+      "id_ride": 17,
+      "description": "Ride cancelled by rider",
+      "created_at": "2025-05-16T14:58:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 39,
+    "fields": {
+      "id_ride": 18,
+      "description": "En route to destination",
+      "created_at": "2025-05-16T14:45:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 40,
+    "fields": {
+      "id_ride": 18,
+      "description": "Arrived at destination",
+      "created_at": "2025-05-16T14:50:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 41,
+    "fields": {
+      "id_ride": 18,
+      "description": "Passenger dropped off",
+      "created_at": "2025-05-16T14:55:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 42,
+    "fields": {
+      "id_ride": 19,
+      "description": "Driver arrived",
+      "created_at": "2025-05-16T15:12:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 43,
+    "fields": {
+      "id_ride": 19,
+      "description": "Passenger onboard",
+      "created_at": "2025-05-16T15:17:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 44,
+    "fields": {
+      "id_ride": 20,
+      "description": "En route to destination",
+      "created_at": "2025-05-16T16:07:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 45,
+    "fields": {
+      "id_ride": 20,
+      "description": "Arrived at destination",
+      "created_at": "2025-05-16T16:12:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 46,
+    "fields": {
+      "id_ride": 20,
+      "description": "Passenger dropped off",
+      "created_at": "2025-05-16T16:17:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 47,
+    "fields": {
+      "id_ride": 21,
+      "description": "En route to destination",
+      "created_at": "2025-05-16T14:46:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 48,
+    "fields": {
+      "id_ride": 21,
+      "description": "Arrived at destination",
+      "created_at": "2025-05-16T14:51:11.163640+00:00"
+    }
+  },
+  {
+    "model": "ride.rideevent",
+    "pk": 49,
+    "fields": {
+      "id_ride": 21,
+      "description": "Passenger dropped off",
+      "created_at": "2025-05-16T14:56:11.163640+00:00"
+    }
+  }
+]

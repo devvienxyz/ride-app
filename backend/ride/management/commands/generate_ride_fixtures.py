@@ -86,10 +86,10 @@ class Command(BaseCommand):
         fixtures_dir = Path("ride/fixtures")
         fixtures_dir.mkdir(parents=True, exist_ok=True)
 
-        with open(fixtures_dir / "01_rides.json", "w") as f:
+        with open(fixtures_dir / "00_rides.json", "w") as f:
             json.dump(rides, f, indent=2)
 
-        with open(fixtures_dir / "02_ride_events.json", "w") as f:
+        with open(fixtures_dir / "01_ride_events.json", "w") as f:
             json.dump(events, f, indent=2)
 
         self.stdout.write(self.style.SUCCESS(f"✅ Generated {ride_count} rides and {len(events)} ride events."))
