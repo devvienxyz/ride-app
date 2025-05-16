@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import useStore from "@/store"
 import axiosInstance from "@/axios"
-import { Table, TableCell, TableRow } from "@components/ui";
+import { Table } from "@components/ui";
+import { SideDialog } from "./detail"
+import RideTableRow from "./ride-table-row";
 
 const RIDE_TABLE_HEADERS = [
   "Status",
@@ -12,80 +14,62 @@ const RIDE_TABLE_HEADERS = [
   "Pickup Time",
 ]
 
-function renderTableRow(rowData, rowIdx) {
-  const {
-    status,
-    id_rider,
-    id_driver,
-    pickup_latitude,
-    pickup_longitude,
-    dropoff_latitude,
-    dropoff_longitude,
-    pickup_time,
-  } = rowData;
-
-  return (
-    <TableRow key={`ride-${rowIdx}`}>
-      <TableCell firstCell>{status}</TableCell>
-      <TableCell>{id_rider}</TableCell>
-      <TableCell>{id_driver}</TableCell>
-      <TableCell>
-        {pickup_latitude}, {pickup_longitude}
-      </TableCell>
-      <TableCell>
-        {dropoff_latitude}, {dropoff_longitude}
-      </TableCell>
-      <TableCell>{pickup_time}</TableCell>
-    </TableRow>
-  )
-}
-
 export default function Rides() {
-  const { rides, setRides } = useStore((state) => state)
+  const { rides, setRides } = useStore(state => state);
+  const [selectedRide, setSelectedRide] = useState(null);
 
-  const onPageChange = (newPageNo) => {
-    console.log("newPageNo: ", newPageNo)
-  }
+  const onPageChange = useCallback((newPageNo) => {
+    console.log("newPageNo: ", newPageNo);
+  }, []);
+
+  const handleRideClick = useCallback((ride) => {
+    setSelectedRide(ride);
+  }, []);
 
   useEffect(() => {
-    const fetchRides = async () => {
+    (async () => {
       try {
-        const { data } = await axiosInstance.get("/rides/", { withCredentials: true });
-        const ctx = {
+        const { data } = await axiosInstance.get("/rides/");
+        setRides({
           count: data?.count || 0,
           next: data?.next || null,
           previous: data?.previous || null,
           results: data?.results || [],
-        }
-
-        setRides(ctx);
-      } catch (error) {
-        // console.error("Error fetching rides", error);
-        // Handle error (show error message)
+        });
+      } catch (err) {
+        // Handle error
       }
-    };
-
-    fetchRides();
+    })();
   }, [setRides]);
 
   return (
-    <div className="w-full flex flex-row justify-center self-center">
-      <div className="py-6 w-full xl:max-w-2/3 gap-6">
-        <div className="">
+    <>
+      <div className="w-full flex flex-row justify-center self-center">
+        <div className="py-6 w-full xl:max-w-2/3 gap-6">
           <Table
             onPageChange={onPageChange}
             searchBarCtx={{
               title: "Rides Overview",
-              subTitle: "A summary of all ride records including status, participants, and route details.",
+              subTitle: "Summary of all rides with route and participant info.",
               searchPlaceholder: "Search rides..."
             }}
             emptyMsg="No rides found."
             resourceName="rides"
             headers={RIDE_TABLE_HEADERS}
             paginationCtx={rides}
-            rowRenderer={renderTableRow} />
+            rowRenderer={(ride, idx) => (
+              <RideTableRow key={`ride-${idx}`} ride={ride} onClick={handleRideClick} />
+            )}
+          />
         </div>
       </div>
-    </div>
-  )
+
+      {selectedRide && (
+        <SideDialog
+          rideId={selectedRide.id_ride}
+          onClose={() => setSelectedRide(null)}
+        />
+      )}
+    </>
+  );
 }

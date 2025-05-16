@@ -15,10 +15,10 @@ export default function Home() {
           <div className="lg:py-6">
             <Rides />
           </div>
-
+{/* 
           <div className="lg:py-6">
             <RideEvents />
-          </div>
+          </div> */}
         </div>
       )}
     </div>
