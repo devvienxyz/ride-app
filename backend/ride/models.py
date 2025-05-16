@@ -6,6 +6,7 @@ class Ride(models.Model):
         ("en-route", "En Route"),
         ("pickup", "Pickup"),
         ("dropoff", "Dropoff"),
+        ("cancelled", "Cancelled"),
     ]
 
     id_ride = models.AutoField(primary_key=True)
