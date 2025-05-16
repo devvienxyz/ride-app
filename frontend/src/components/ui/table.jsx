@@ -26,7 +26,7 @@ function TableSearchBar({ searchBarCtx, ...props }) {
   const { title, subTitle, searchPlaceholder } = searchBarCtx;
 
   return (
-    <div className="w-full flex justify-between items-center mb-3 mt-1 pl-3">
+    <div className="w-full flex flex-col sm:flex-row justify-between items-center mb-3 mt-1 pl-3 gap-2">
       <div>
         <h3 className="text-lg font-semibold text-slate-800">{title}</h3>
         <p className="text-slate-500 text-sm wrap">{subTitle}</p>
