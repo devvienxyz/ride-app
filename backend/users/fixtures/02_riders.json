@@ -1,0 +1,67 @@
+[
+  {
+    "model": "users.user",
+    "fields": {
+      "email": "rider1@example.com",
+      "first_name": "Rider1",
+      "last_name": "Test",
+      "phone_number": "+15550000000",
+      "role": "rider",
+      "is_active": true,
+      "is_staff": false,
+      "password": "pbkdf2_sha256$1000000$VyOvkHERhhxQ5U7Qwt0FWi$oEBoEHrqUocDXNe0q57n4eGum5hni15j0A98rfZ6khI="
+    }
+  },
+  {
+    "model": "users.user",
+    "fields": {
+      "email": "rider2@example.com",
+      "first_name": "Rider2",
+      "last_name": "Test",
+      "phone_number": "+15550000001",
+      "role": "rider",
+      "is_active": true,
+      "is_staff": false,
+      "password": "pbkdf2_sha256$1000000$VyOvkHERhhxQ5U7Qwt0FWi$oEBoEHrqUocDXNe0q57n4eGum5hni15j0A98rfZ6khI="
+    }
+  },
+  {
+    "model": "users.user",
+    "fields": {
+      "email": "rider3@example.com",
+      "first_name": "Rider3",
+      "last_name": "Test",
+      "phone_number": "+15550000002",
+      "role": "rider",
+      "is_active": true,
+      "is_staff": false,
+      "password": "pbkdf2_sha256$1000000$VyOvkHERhhxQ5U7Qwt0FWi$oEBoEHrqUocDXNe0q57n4eGum5hni15j0A98rfZ6khI="
+    }
+  },
+  {
+    "model": "users.user",
+    "fields": {
+      "email": "rider4@example.com",
+      "first_name": "Rider4",
+      "last_name": "Test",
+      "phone_number": "+15550000003",
+      "role": "rider",
+      "is_active": true,
+      "is_staff": false,
+      "password": "pbkdf2_sha256$1000000$VyOvkHERhhxQ5U7Qwt0FWi$oEBoEHrqUocDXNe0q57n4eGum5hni15j0A98rfZ6khI="
+    }
+  },
+  {
+    "model": "users.user",
+    "fields": {
+      "email": "rider5@example.com",
+      "first_name": "Rider5",
+      "last_name": "Test",
+      "phone_number": "+15550000004",
+      "role": "rider",
+      "is_active": true,
+      "is_staff": false,
+      "password": "pbkdf2_sha256$1000000$VyOvkHERhhxQ5U7Qwt0FWi$oEBoEHrqUocDXNe0q57n4eGum5hni15j0A98rfZ6khI="
+    }
+  }
+]

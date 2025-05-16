@@ -38,7 +38,7 @@ Change the environment values accordingly.
 ## Making Fixtures
 
 ```bash
-python manage.py generate_users_app_fixtures --riders 15 --drivers 8 --password <securepasswordhere>
+python manage.py generate_users_app_fixtures --riders 5 --drivers 5 --password <securepasswordhere>
 ```
 
 ## Testing
