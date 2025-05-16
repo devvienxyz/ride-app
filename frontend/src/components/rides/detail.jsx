@@ -4,7 +4,7 @@ function DetailItem({ label, children }) {
   return (
     <div className="">
       <p className="mt-4 font-semibold">{label}</p>
-      <p>{children}</p>
+      <p className="text-slate-500">{children}</p>
     </div>
   )
 }
@@ -25,8 +25,8 @@ export function SideDialog({ rideId, onClose }) {
   if (!details) return <div className="fixed z-2 right-0 top-0 w-full sm:w-2/3 lg:w-1/3 xl:max-w-1/4 h-full bg-slate-50 shadow p-8 pt-12 flex flex-col">Loading...</div>;
 
   return (
-    <div className="fixed z-2 right-0 top-0 w-full sm:w-2/3 lg:w-1/3 xl:max-w-1/4 h-full bg-slate-50 shadow p-8 pt-12 flex flex-col">
-      <button onClick={onClose} className="self-end mb-2">Close</button>
+    <div className="fixed z-2 right-0 top-0 w-full sm:w-2/3 lg:w-1/3 xl:max-w-1/4 h-full bg-slate-50 shadow p-8 pt-12 flex flex-col text-slate-800">
+      <button onClick={onClose} className="text-slate-900 self-end mb-2">Close</button>
 
       <div className="flex flex-col gap-6">
         <DetailItem label="Ride ID">
