@@ -35,6 +35,12 @@ Change the environment values accordingly.
 ./docker.sh up-build dev
 ```
 
+## Making Fixtures
+
+```bash
+python manage.py generate_users_app_fixtures --riders 15 --drivers 8 --password <securepasswordhere>
+```
+
 ## Testing
 
 ```bash
