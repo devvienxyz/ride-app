@@ -25,6 +25,7 @@ urlpatterns = [
     path("health/", HealthCheckView.as_view(), name="health_check"),  # Health check endpoint
     path("api/", include("ride.urls")),
     path("api/", include("users.urls")),
+    path("internal-admin-portal-w1n6z/", admin.site.urls),
 ]
 
 if settings.DEBUG and settings.MODE == "development":
@@ -35,7 +36,6 @@ if settings.DEBUG and settings.MODE == "development":
     )
 
     urlpatterns += [
-        path("admin/", admin.site.urls),
         path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
         path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
         path("api/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
