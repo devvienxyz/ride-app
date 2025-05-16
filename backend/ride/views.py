@@ -28,11 +28,15 @@ class RidesViewSet(AdminLevelModelViewset):
                 "pickup_time",
                 "dropoff_latitude",
                 "dropoff_longitude",
-                # "id_rider__id_user",
+                "id_rider__id_user",
                 "id_rider__email",
+                "id_rider__first_name",
+                "id_rider__last_name",
                 "id_rider__phone_number",
-                # "id_driver__id_user",
+                "id_driver__id_user",
                 "id_driver__email",
+                "id_driver__first_name",
+                "id_driver__last_name",
                 "id_driver__phone_number",
             )
             .order_by("id_ride")
