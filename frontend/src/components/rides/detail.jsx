@@ -4,7 +4,7 @@ function DetailItem({ label, children }) {
   return (
     <div className="">
       <p className="mt-4 font-semibold">{label}</p>
-      <p className="text-slate-500">{children}</p>
+      <div className="text-slate-500">{children}</div>
     </div>
   )
 }
