@@ -1,5 +1,14 @@
 import { useState, useEffect } from "react"
 
+function DetailItem({ label, children }) {
+  return (
+    <div className="">
+      <p className="mt-4 font-semibold">{label}</p>
+      <p>{children}</p>
+    </div>
+  )
+}
+
 export function SideDialog({ rideId, onClose }) {
   const [details, setDetails] = useState(null);
 
@@ -9,27 +18,57 @@ export function SideDialog({ rideId, onClose }) {
       const data = await res.json();
       setDetails(data);
     }
+
     fetchDetails();
   }, [rideId]);
 
-  if (!details) return <div className="fixed right-0 top-0 w-80 h-full bg-white shadow p-4">Loading...</div>;
+  if (!details) return <div className="fixed z-2 right-0 top-0 w-full sm:w-2/3 lg:w-1/3 xl:max-w-1/4 h-full bg-slate-50 shadow p-8 pt-12 flex flex-col">Loading...</div>;
 
   return (
-    <div className="fixed z-2 right-0 top-0 w-full sm:w-2/3 lg:w-1/3 h-full bg-white shadow p-4 pt-12 flex flex-col">
+    <div className="fixed z-2 right-0 top-0 w-full sm:w-2/3 lg:w-1/3 xl:max-w-1/4 h-full bg-slate-50 shadow p-8 pt-12 flex flex-col">
       <button onClick={onClose} className="self-end mb-2">Close</button>
-      <h2 className="text-lg font-bold mb-4">Ride #{details.id_ride}</h2>
-      <p>Status: {details.status}</p>
-      <p>Pickup: {details.pickup_latitude}, {details.pickup_longitude}</p>
-      <p>Driver ID: {details.id_driver.email}</p>
-      <p>Rider ID: {details.id_rider.email}</p>
-      <h3 className="mt-4 font-semibold">Recent Events</h3>
-      <ul className="overflow-auto max-h-64">
-        {details.todays_ride_events?.map(event => (
-          <li key={event.id_ride_event}>
-            {new Date(event.created_at).toLocaleString()}: {event.description}
-          </li>
-        ))}
-      </ul>
+
+      <div className="flex flex-col gap-6">
+        <DetailItem label="Ride ID">
+          <p>{details.id_ride}</p>
+        </DetailItem>
+
+        <DetailItem label="Status">
+          <p>{details.status}</p>
+        </DetailItem>
+
+        <DetailItem label="Pickup Time">
+          <p>{details.pickup_time}</p>
+        </DetailItem>
+
+        <DetailItem label="Pickup Location">
+          <p>{details.pickup_latitude}, {details.pickup_longitude}</p>
+        </DetailItem>
+
+        <DetailItem label="Dropoff Location">
+          <p>{details.dropoff_latitude}, {details.dropoff_longitude}</p>
+        </DetailItem>
+
+        <DetailItem label="Driver">
+          <p>{details.id_driver.first_name} {details.id_driver.last_name}</p>
+          <p>{details.id_driver.email}</p>
+        </DetailItem>
+
+        <DetailItem label="Rider">
+          <p>{details.id_rider.first_name} {details.id_rider.last_name}</p>
+          <p>{details.id_rider.email}</p>
+        </DetailItem>
+
+        <DetailItem label="Ride Events">
+          <ul className="overflow-auto max-h-64">
+            {details.todays_ride_events?.map(event => (
+              <li key={event.id_ride_event}>
+                {new Date(event.created_at).toLocaleString()}: {event.description}
+              </li>
+            ))}
+          </ul>
+        </DetailItem>
+      </div>
     </div>
   );
 }
