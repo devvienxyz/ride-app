@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight } from "@icons";
 
 const LeanButton = ({ children, addlClasses = "", ...props }) => {
-  const baseClasses = "w-full bg-transparent disabled:text-gray-500 text-xl rounded m-0 p-0";
+  const baseClasses = "w-full bg-transparent disabled:text-gray-500 rounded m-0 p-0 text-lg";
   const classes = `${baseClasses} ${addlClasses}`;
 
   return <button className={classes} {...props}>{children}</button>;
