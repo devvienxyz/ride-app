@@ -34,6 +34,10 @@ class LoginView(PublicView):
     def post(self, request):
         email = request.data.get("email")
         password = request.data.get("password")
+
+        if not email or not password:
+            return Response({"detail": "Email and password are required."}, status=status.HTTP_400_BAD_REQUEST)
+
         user = authenticate(request, email=email, password=password)
 
         if user is not None:
@@ -57,7 +61,7 @@ class LoginView(PublicView):
                 max_age=7 * 24 * 60 * 60,
             )
             return res
-        return Response({"detail": "Invalid credentials"}, status=401)
+        return Response({"detail": "Invalid credentials."}, status=401)
 
 
 class LogoutView(PublicView):

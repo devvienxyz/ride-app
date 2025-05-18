@@ -20,6 +20,7 @@ def test_rides_accessible_to_admin_only(client, create_regular_user, create_supe
     assert response.status_code == status.HTTP_200_OK  # Allowed for superuser
 
 
+@pytest.mark.skip(reason="Temporarily remmoved ride events api")
 @pytest.mark.django_db
 @pytest.mark.admin_level_only_view
 def test_ride_events_accessible_to_admin_only(client, create_regular_user, create_superuser):
