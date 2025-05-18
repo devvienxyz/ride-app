@@ -29,7 +29,7 @@ export default function Rides() {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axiosInstance.get("/rides/");
+        const { data } = await axiosInstance.get("/rides/", { withCredentials: true });
         setRides({
           count: data?.count || 0,
           next: data?.next || null,
