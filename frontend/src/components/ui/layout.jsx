@@ -23,7 +23,7 @@ const NavBar = () => {
           <BrandLink addlClasses="text-2xl text-blue-950" to="/">ride</BrandLink>
         </li>
         <li className="self-center">
-          <LeanButton onClick={handleLogout} addlClasses="text-[1rem] text-blue-950">Log out</LeanButton>
+          <LeanButton onClick={handleLogout} addlClasses="text-xl text-[1rem] text-blue-950">Log out</LeanButton>
         </li>
       </ul>
     </nav>
