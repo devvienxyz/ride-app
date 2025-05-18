@@ -80,9 +80,9 @@ export function DetailSidebar({ rideId, onClose }) {
           </DetailItem>
         </div>
 
-        <div className="flex justify-center gap-6">
-          <Button onClick={handleEdit} addlClasses="!text-gray-800 text-md border border-slate-900 hover:border-blue-800 hover:bg-blue-800 hover:!text-white bg-transparent">Edit</Button>
-          <Button onClick={handleDelete} addlClasses="!text-gray-800 text-md border border-slate-900 hover:border-red-800 hover:bg-red-800 hover:!text-white bg-transparent">Delete</Button>
+        <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-6 md:px-24 lg:px-20">
+          <button onClick={handleEdit} className="py-2 px-4 md:w-full text-gray-800 text-md border rounded-md border-slate-900 bg-transparent hover:border-slate-500 hover:bg-slate-500 hover:text-white">Edit</button>
+          <button onClick={handleDelete} className="py-2 px-4 md:w-full text-gray-800 text-md border rounded-md border-slate-900 bg-transparent hover:border-red-300 hover:bg-red-400 hover:text-white">Delete</button>
         </div>
       </div>
     </Sidebar>
