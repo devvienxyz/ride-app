@@ -17,22 +17,41 @@ const RIDE_TABLE_HEADERS = [
 export default function Rides() {
   const { rides, setRides } = useStore(state => state);
   const [selectedRide, setSelectedRide] = useState(null);
+  const [filterEmail, setFilterEmail] = useState("");
+  const [filterStatus, setFilterStatus] = useState([]);
+
+  const buildParams = (extra = {}) => {
+    const params = {};
+    if (filterStatus.length) params.status = filterStatus.join(",");
+    if (filterEmail) params.rider_email = filterEmail;
+    return { ...params, ...extra };
+  };
+
+  const fetchRides = useCallback(async (params = {}) => {
+    try {
+      const { data } = await axiosInstance.get("/rides/", {
+        params,
+        withCredentials: true,
+      });
+
+      setRides({
+        count: data?.count || 0,
+        next: data?.next || null,
+        previous: data?.previous || null,
+        results: data?.results || [],
+      });
+    } catch (err) {
+      // TODO: add error handling
+    }
+  }, [setRides]);
+
+  const onFilter = useCallback(() => {
+    fetchRides(buildParams());
+  }, [filterEmail, filterStatus, fetchRides]);
 
   const onPageChange = useCallback((newPageNo) => {
-    (async () => {
-      try {
-        const { data } = await axiosInstance.get(`/rides/?page=${newPageNo}`, { withCredentials: true });
-        setRides({
-          count: data?.count || 0,
-          next: data?.next || null,
-          previous: data?.previous || null,
-          results: data?.results || [],
-        });
-      } catch (err) {
-        // Handle error
-      }
-    })();
-  }, []);
+    fetchRides(buildParams({ page: newPageNo }));
+  }, [filterEmail, filterStatus, fetchRides]);
 
   const handleRideClick = useCallback((ride) => {
     setSelectedRide(ride);
@@ -59,6 +78,8 @@ export default function Rides() {
       <div className="w-full flex flex-row justify-center self-center">
         <div className="py-6 w-full xl:max-w-2/3 gap-6">
           <Table
+            onFilter={onFilter}
+            onSearchInputChange={setFilterEmail}
             onPageChange={onPageChange}
             searchBarCtx={{
               title: "Rides Overview",

@@ -1,12 +1,6 @@
 import { useState } from "react"
 import { ChevronLeft, ChevronRight } from "@icons"
 
-function TableCellText({ children, addlClasses = "", ...props }) {
-  return (
-    <p className="text-sm text-slate-800">{children}</p>
-  )
-}
-
 function TableCell({ children, firstCell = false, addlClasses = "", ...props }) {
   const firstCellAddlClasses = "block font-semibold"
 
@@ -25,8 +19,18 @@ function TableRow({ children, addlClasses = "", ...props }) {
   )
 }
 
-function TableSearchBar({ searchBarCtx, ...props }) {
+function TableSearchBar({ onFilter, onSearchInputChange, searchBarCtx, ...props }) {
   const { title, subTitle, searchPlaceholder } = searchBarCtx;
+
+  const handleOnKeyUp = (e) => {
+    if (e.key == "Enter") {
+      onFilter()
+    }
+  }
+
+  const handleOnChange = (e) => {
+    onSearchInputChange(e.target.value || "")
+  }
 
   return (
     <div className="w-full flex flex-col sm:flex-row justify-between items-center mb-3 mt-1 pl-3 gap-2">
@@ -40,6 +44,8 @@ function TableSearchBar({ searchBarCtx, ...props }) {
             <input
               className="bg-white w-full pr-11 h-10 pl-3 py-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-blue-700 shadow-sm focus:shadow-md"
               placeholder={searchPlaceholder}
+              onChange={handleOnChange}
+              onKeyUp={handleOnKeyUp}
             />
             <button
               className="absolute h-8 w-8 right-1 top-1 my-auto px-2 flex items-center bg-white rounded "
@@ -114,6 +120,8 @@ function TableHeader({ children }) {
 }
 
 export default function Table({
+  onFilter,
+  onSearchInputChange,
   onPageChange,
   searchBarCtx,
   resourceName,
@@ -127,7 +135,11 @@ export default function Table({
 
   return (
     <div className="shadow-md bg-slate-50 border rounded-lg border-transparent pt-4">
-      <TableSearchBar searchBarCtx={searchBarCtx} />
+      <TableSearchBar
+        onFilter={onFilter}
+        onSearchInputChange={onSearchInputChange}
+        searchBarCtx={searchBarCtx}
+      />
 
       <div className="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
         <table className="w-full text-left table-auto min-w-max">
