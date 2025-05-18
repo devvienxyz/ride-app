@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import useStore from "@/store"
 import axiosInstance from "@/axios"
 import { Table } from "@components/ui";
-import { SideDialog } from "./detail"
+import { DetailSidebar } from "./detail"
 import RideTableRow from "./ride-table-row";
 
 const RIDE_TABLE_HEADERS = [
@@ -65,7 +65,7 @@ export default function Rides() {
       </div>
 
       {selectedRide && (
-        <SideDialog
+        <DetailSidebar
           rideId={selectedRide.id_ride}
           onClose={() => setSelectedRide(null)}
         />

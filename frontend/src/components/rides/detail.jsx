@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
-import { Button } from "@components/ui"
+import { Button, Sidebar, LoaderSidebar } from "@components/ui"
 import axiosInstance from "@/axios";
-import Sidebar from "../ui/sidebar";
 
 function DetailItem({ label, children }) {
   return (
@@ -12,7 +11,7 @@ function DetailItem({ label, children }) {
   )
 }
 
-export function SideDialog({ rideId, onClose }) {
+export function DetailSidebar({ rideId, onClose }) {
   const [details, setDetails] = useState(null);
 
   const handleEdit = async () => {
@@ -34,10 +33,10 @@ export function SideDialog({ rideId, onClose }) {
     fetchDetails();
   }, [rideId]);
 
-  if (!details) return <div className="fixed z-2 right-0 top-0 w-full sm:w-2/3 lg:w-1/3 xl:max-w-1/4 h-full bg-slate-50 shadow p-8 pt-12 flex flex-col">Loading...</div>;
+  if (!details) return <LoaderSidebar onClose={onClose} />
 
   return (
-    <Sidebar isLoading={!details} onClose={onClose}>
+    <Sidebar onClose={onClose}>
       <div className="flex flex-col h-full justify-between">
         <div className="flex flex-col gap-6">
           <DetailItem label="Ride ID">
