@@ -1,3 +1,4 @@
+import { XMark } from "@icons"
 import Spinner from "./loaders"
 
 export default function Sidebar({ isLoading, onClose, children }) {
@@ -9,10 +10,12 @@ export default function Sidebar({ isLoading, onClose, children }) {
           <button onClick={onClose} className="text-slate-900 self-center mb-2 underline">Close this view</button>
         </div>
       ) : (
-        <div>
-          <button onClick={onClose} className="text-slate-900 self-end mb-2">Close</button>
+        <>
+          <button onClick={onClose} className="text-slate-900 self-end mb-2">
+            <XMark />
+          </button>
           {children}
-        </div>
+        </>
       )}
     </div>
   )
