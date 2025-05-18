@@ -1,3 +1,6 @@
+import { useState } from "react"
+import { ChevronLeft, ChevronRight } from "@icons"
+
 function TableCellText({ children, addlClasses = "", ...props }) {
   return (
     <p className="text-sm text-slate-800">{children}</p>
@@ -56,14 +59,20 @@ function TableSearchBar({ searchBarCtx, ...props }) {
 function TableFooter({ count, next, previous, onPageChange }) {
   const limit = 10, offset = 0;
   const totalPages = Math.ceil(count / limit) || 1;
-  const currentPage = Math.floor(offset / limit) + 1;
+  const [currentPage, setCurrentPage] = useState(1)
 
   const handlePreviousPage = () => {
-    if (currentPage > 1) onPageChange(currentPage - 1);
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1)
+      onPageChange(currentPage - 1);
+    }
   };
 
   const handleNextPage = () => {
-    if (currentPage < totalPages) onPageChange(currentPage + 1);
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1)
+      onPageChange(currentPage + 1);
+    }
   };
 
   return (
@@ -77,16 +86,16 @@ function TableFooter({ count, next, previous, onPageChange }) {
           <button
             onClick={handlePreviousPage}
             disabled={currentPage === 1}
-            className="select-none rounded-lg border border-blue-950 py-2 px-4 text-xs font-bold uppercase transition-all hover:opacity-75 focus:ring focus:ring-gray-300 disabled:opacity-50"
+            className="select-none rounded-lg border border-blue-950 py-2 px-4 text-xs font-bold uppercase transition-all hover:bg-blue-100 focus:ring focus:ring-gray-300 disabled:opacity-50"
             type="button">
-            Previous
+            <ChevronLeft />
           </button>
           <button
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
-            className="select-none rounded-lg border border-blue-950 py-2 px-4 text-xs font-bold uppercase transition-all hover:opacity-75 focus:ring focus:ring-gray-300 disabled:opacity-50"
+            className="select-none rounded-lg border border-blue-950 py-2 px-4 text-xs font-bold uppercase transition-all hover:bg-blue-100 focus:ring focus:ring-gray-300 disabled:opacity-50"
             type="button">
-            Next
+            <ChevronRight />
           </button>
         </div>
       )}

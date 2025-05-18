@@ -19,7 +19,19 @@ export default function Rides() {
   const [selectedRide, setSelectedRide] = useState(null);
 
   const onPageChange = useCallback((newPageNo) => {
-    console.log("newPageNo: ", newPageNo);
+    (async () => {
+      try {
+        const { data } = await axiosInstance.get(`/rides/?page=${newPageNo}`, { withCredentials: true });
+        setRides({
+          count: data?.count || 0,
+          next: data?.next || null,
+          previous: data?.previous || null,
+          results: data?.results || [],
+        });
+      } catch (err) {
+        // Handle error
+      }
+    })();
   }, []);
 
   const handleRideClick = useCallback((ride) => {
