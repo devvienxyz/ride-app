@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Button, Sidebar, LoaderSidebar } from "@components/ui"
+import { Sidebar, LoaderSidebar } from "@components/ui"
 import axiosInstance from "@/axios";
 
 function DetailItem({ label, children }) {
@@ -69,7 +69,7 @@ export function DetailSidebar({ rideId, onClose }) {
             <p>{details.id_rider.email}</p>
           </DetailItem>
 
-          <DetailItem label="Ride Events">
+          <DetailItem label="Ride Events Today">
             <ul className="overflow-auto max-h-64">
               {details.todays_ride_events?.map(event => (
                 <li key={event.id_ride_event}>
@@ -77,6 +77,7 @@ export function DetailSidebar({ rideId, onClose }) {
                 </li>
               ))}
             </ul>
+            {!details?.todays_ride_events?.length && "None"}
           </DetailItem>
         </div>
 
