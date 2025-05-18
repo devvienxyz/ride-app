@@ -1,6 +1,66 @@
 {
   "folders": [
-    { "path": "frontend" },
-    { "path": "backend" }
-  ]
+    {
+      "path": "."
+    },
+  ],
+  "settings": {
+    // General settings
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/__pycache__": true,
+      "**/*.pyc": true,
+      "**/*.pyo": true
+    },
+    "files.trimTrailingWhitespace": true,
+    "editor.detectIndentation": false,
+    "editor.formatOnSave": true,
+    "workbench.settings.editor": "json",
+    // Terminal
+    "terminal.integrated.cwd": "frontend",
+    // JavaScript / TypeScript / JSX (frontend)
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "[javascript]": {
+      "editor.insertSpaces": true,
+      "editor.tabSize": 2
+    },
+    "[javascriptreact]": {
+      "editor.insertSpaces": true,
+      "editor.tabSize": 2
+    },
+    "[typescriptreact]": {
+      "editor.insertSpaces": true,
+      "editor.tabSize": 2
+    },
+    // Biome integration (frontend)
+    "editor.codeActionsOnSave": {
+      "source.fixAll.biome": "explicit",
+      "source.organizeImports.biome": "explicit"
+    },
+    // Python (backend)
+    "editor.rulers": [
+      120
+    ],
+    "python.linting.enabled": true,
+    "python.linting.ruffEnabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": false,
+    "python.linting.ruffArgs": [
+      "--fix"
+    ],
+    "python.defaultInterpreterPath": "${workspaceFolder}/backend/venv/bin/python",
+    "[python]": {
+      "editor.tabSize": 4,
+      "editor.insertSpaces": false,
+      "editor.formatOnType": true,
+      "editor.defaultFormatter": "charliermarsh.ruff",
+      "editor.wordBasedSuggestions": "off",
+      "diffEditor.ignoreTrimWhitespace": false,
+      "editor.defaultColorDecorators": "never",
+      "gitlens.codeLens.symbolScopes": [
+        "!Module"
+      ]
+    }
+  }
 }
