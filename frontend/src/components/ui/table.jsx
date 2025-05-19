@@ -46,7 +46,7 @@ function TableSearchBar({
       <div className="w-full max-w-sm min-w-[200px] relative">
         <div className="relative">
           <input
-            className="bg-white w-full pr-11 h-10 pl-3 py-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-blue-700 shadow-sm focus:shadow-md"
+            className="bg-white w-full pr-11 h-10 pl-3 py-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-300 ease focus:outline-none active:focus:hover:border-blue-600 shadow-sm focus:shadow-md"
             placeholder={searchPlaceholder}
             onChange={handleOnChange}
             onKeyUp={handleOnKeyUp}
