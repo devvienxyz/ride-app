@@ -54,6 +54,7 @@ function TableSearchBar({
           <button
             className="absolute h-8 w-8 right-1 top-1 my-auto px-2 flex items-center bg-white rounded"
             type="button"
+            onClick={onFilter}
           >
             <MagnifyingGlass />
           </button>
