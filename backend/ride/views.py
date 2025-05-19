@@ -1,6 +1,6 @@
 from django.utils.timezone import now, timedelta
 from django_filters.rest_framework import DjangoFilterBackend
-from django.db.models import Q, F, Func, ExpressionWrapper, FloatField
+from django.db.models import F, ExpressionWrapper, FloatField
 from django.db.models.functions import Sqrt, Power
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.decorators import action
