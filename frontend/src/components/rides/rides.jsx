@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import useStore from "@/store"
 import axiosInstance from "@/axios"
+import { StatusFilterOptions } from "@/constants";
 import { Table } from "@components/ui";
 import { DetailSidebar } from "./detail"
 import RideTableRow from "./ride-table-row";
@@ -13,13 +14,6 @@ const RideTableHeaders = [
   "Dropoff Location",
   "Pickup Time",
 ]
-
-const StatusFilterOptions = Object.freeze({
-  "en-route": "En Route",
-  "pickup": "Pickup",
-  "dropoff": "Dropoff",
-  "cancelled": "Cancelled",
-})
 
 export default function Rides() {
   const { rides, setRides } = useStore(state => state);

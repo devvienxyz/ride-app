@@ -1,4 +1,5 @@
 import { TableCell, TableRow } from "@components/ui";
+import { StatusFilterOptions } from "@/constants"
 
 export default function RideTableRow({ ride, onClick }) {
   const {
@@ -14,7 +15,7 @@ export default function RideTableRow({ ride, onClick }) {
 
   return (
     <TableRow onClick={() => onClick(ride)}>
-      <TableCell firstCell>{status}</TableCell>
+      <TableCell firstCell>{StatusFilterOptions[status]}</TableCell>
       <TableCell>{id_rider?.email}</TableCell>
       <TableCell>{id_driver?.email}</TableCell>
       <TableCell>{pickup_latitude}, {pickup_longitude}</TableCell>
