@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { ChevronLeft, ChevronRight } from "@icons"
+import { ChevronLeft, ChevronRight, MagnifyingGlass } from "@icons"
+import { MultiSelectOnDropdown } from "./inputs"
 
 function TableCell({ children, firstCell = false, addlClasses = "", ...props }) {
   const firstCellAddlClasses = "block font-semibold"
@@ -19,7 +20,15 @@ function TableRow({ children, addlClasses = "", ...props }) {
   )
 }
 
-function TableSearchBar({ onFilter, onSearchInputChange, searchBarCtx, ...props }) {
+function TableSearchBar({
+  filterLabel,
+  filterOptions,
+  onMultiselectChange,
+  onFilter,
+  onSearchInputChange,
+  searchBarCtx,
+  ...props
+}) {
   const { title, subTitle, searchPlaceholder } = searchBarCtx;
 
   const handleOnKeyUp = (e) => {
@@ -32,32 +41,48 @@ function TableSearchBar({ onFilter, onSearchInputChange, searchBarCtx, ...props 
     onSearchInputChange(e.target.value || "")
   }
 
+  const SearchBar = (
+    <div className="ml-3 pr-3">
+      <div className="w-full max-w-sm min-w-[200px] relative">
+        <div className="relative">
+          <input
+            className="bg-white w-full pr-11 h-10 pl-3 py-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-blue-700 shadow-sm focus:shadow-md"
+            placeholder={searchPlaceholder}
+            onChange={handleOnChange}
+            onKeyUp={handleOnKeyUp}
+          />
+          <button
+            className="absolute h-8 w-8 right-1 top-1 my-auto px-2 flex items-center bg-white rounded"
+            type="button"
+          >
+            <MagnifyingGlass />
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+
   return (
-    <div className="w-full flex flex-col sm:flex-row justify-between items-center mb-3 mt-1 pl-3 gap-2">
+    <div className="w-full flex flex-col md:flex-row justify-between items-center mb-3 mt-1 pl-3 gap-2">
       <div>
         <h3 className="text-lg font-semibold text-slate-800">{title}</h3>
         <p className="text-slate-500 text-sm wrap">{subTitle}</p>
       </div>
-      <div className="ml-3 pr-3">
-        <div className="w-full max-w-sm min-w-[200px] relative">
-          <div className="relative">
-            <input
-              className="bg-white w-full pr-11 h-10 pl-3 py-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-blue-700 shadow-sm focus:shadow-md"
-              placeholder={searchPlaceholder}
-              onChange={handleOnChange}
-              onKeyUp={handleOnKeyUp}
-            />
-            <button
-              className="absolute h-8 w-8 right-1 top-1 my-auto px-2 flex items-center bg-white rounded "
-              type="button"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="3" stroke="currentColor" className="w-8 h-8 text-slate-600">
-                <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-              </svg>
-            </button>
-          </div>
+
+      <div className="flex flex-col justify-center gap-2 align-center sm:flex-row">
+        {/* dropdown for filter */}
+        <div className="flex justify-center md:justify-end">
+          <MultiSelectOnDropdown
+            filterLabel={filterLabel}
+            filterOptions={filterOptions}
+            onMultiselectChange={onMultiselectChange} />
+        </div>
+
+        <div className="">
+          {SearchBar}
         </div>
       </div>
+
     </div>
   )
 }
@@ -120,6 +145,9 @@ function TableHeader({ children }) {
 }
 
 export default function Table({
+  filterLabel,
+  filterOptions,
+  onMultiselectChange,
   onFilter,
   onSearchInputChange,
   onPageChange,
@@ -136,6 +164,9 @@ export default function Table({
   return (
     <div className="shadow-md bg-slate-50 border rounded-lg border-transparent pt-4">
       <TableSearchBar
+        filterLabel={filterLabel}
+        filterOptions={filterOptions}
+        onMultiselectChange={onMultiselectChange}
         onFilter={onFilter}
         onSearchInputChange={onSearchInputChange}
         searchBarCtx={searchBarCtx}
