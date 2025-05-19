@@ -3,10 +3,10 @@ from django.db import models
 
 class Ride(models.Model):
     STATUS_CHOICES = [
-        ("en-route", "En Route"),
-        ("pickup", "Pickup"),
-        ("dropoff", "Dropoff"),
-        ("cancelled", "Cancelled"),
+        ("en-route", "En Route"),  # Driver is on the way to pick up the passenger.
+        ("pickup", "Pickup"),  # Driver has arrived at the pickup location.
+        ("dropoff", "Dropoff"),  # Passenger is being or has been dropped off.
+        ("cancelled", "Cancelled"),  # Ride was cancelled (by user, driver, or system).
     ]
 
     id_ride = models.AutoField(primary_key=True)
