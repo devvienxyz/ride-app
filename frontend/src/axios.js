@@ -22,10 +22,10 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(originalRequest) // retry original request
       } catch (refreshErr) {
         if (refreshErr.response?.status === 401) {
-          const { logout } = useAuthStore.getState();
-
-          logout();
-          window.location.href = "/";
+          Promise.resolve().then(() => {
+            const { logout } = useStore.getState();
+            logout();
+          });
         }
 
         return Promise.reject(refreshErr)
