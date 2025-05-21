@@ -5,8 +5,9 @@ from django.db.models.functions import Sqrt, Power
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from shared.views import AdminLevelModelViewset
-from .models import Ride
+from rest_framework.exceptions import PermissionDenied, NotFound
+from shared.views import AdminLevelModelViewset, CreateOrDestroyModelViewset
+from .models import Ride, RideEvent
 from .serializers import RideSerializer, RideEventSerializer
 from .filters import RideFilter
 
@@ -83,3 +84,21 @@ class RidesViewSet(AdminLevelModelViewset):
             return Response(serializer.data)
         except Ride.DoesNotExist:
             return Response({"detail": "Ride not found."}, status=404)
+
+
+class RideEventCreateOrDeleteView(CreateOrDestroyModelViewset):
+    queryset = RideEvent.objects.all()
+    serializer_class = RideEventSerializer
+
+    def perform_create(self, serializer):
+        id_ride = self.request.data.get("id_ride")
+
+        if not id_ride:
+            raise PermissionDenied("Missing ride ID.")
+
+        try:
+            ride = Ride.objects.get(id_ride=id_ride)
+        except Ride.DoesNotExist:
+            raise NotFound("Ride not found.")
+
+        serializer.save(ride=ride)

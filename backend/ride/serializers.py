@@ -7,7 +7,8 @@ from .models import Ride, RideEvent
 class RideEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = RideEvent
-        fields = "__all__"
+        fields = ["id_ride_event", "id_ride", "description", "created_at"]
+        read_only_fields = ["id_ride_event", "created_at"]
 
 
 class RideSerializer(serializers.ModelSerializer):
