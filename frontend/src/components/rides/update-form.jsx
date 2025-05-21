@@ -43,7 +43,6 @@ export default function RideEditForm({ currentValues, rideId, setIsEditing }) {
   return (
     <form>
       <div className="flex flex-col gap-6">
-
         <SingleSelectOnDropdown
           name="status"
           options={StatusFilterOptions}
