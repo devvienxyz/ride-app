@@ -2,6 +2,8 @@ from django.db import models
 
 
 class Ride(models.Model):
+    # TODO: set valid transitions
+
     STATUS_CHOICES = [
         ("requested", "Requested"),  # Ride created but not yet accepted.
         ("assigned", "Assigned"),  # Driver assigned but hasn't started en route
