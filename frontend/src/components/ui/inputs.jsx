@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { Info as InfoIcon } from "@icons/misc"
 import { DownwardChevron } from "@icons/chevron";
+import { getMaxLocal, getNowLocal } from "@utils/booking";
 
 const BaseInput = (props) => (
   <input
@@ -23,6 +25,85 @@ const PasswordInput = (props) => (
     {...props}
   />
 )
+
+function TextAreaInput({ name, label, value, handleChange }) {
+  return (
+    <div className="flex flext-col">
+      <label className="block text-sm font-bold text-gray-700 mb-1">
+        {label}
+      </label>
+      <textarea
+        name={name}
+        maxLength={200}
+        rows={3}
+        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 resize-none"
+        placeholder="Enter description (max 200 characters)"
+        value={!!value || ""}
+        onChange={handleChange}
+      />
+      <p className="text-xs text-gray-500 mt-1">
+        {200 - (value?.length || 0)} characters remaining
+      </p>
+    </div>
+  )
+}
+
+function DateTimeField({ name, label, value, handleChange, helperText = null }) {
+  return (
+    <div className="flex flex-col">
+      <label htmlFor={name} className="text-sm font-bold text-gray-700 mb-1">
+        {label}
+      </label>
+      <input
+        type="datetime-local"
+        id={name}
+        name={name}
+        value={value || ""}
+        onChange={handleChange}
+        className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        maxLength={100}
+        min={getNowLocal()}
+        max={getMaxLocal()}
+      />
+
+      {helperText && (
+        <div className="mt-2 flex text-xs text-slate-500">
+          <InfoIcon />
+          {helperText}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function SingleSelectOnDropdown({ name, options, handleChange, label, currentValue }) {
+  const handlePreChange = (e) => {
+    if (e.target.value !== currentValue) handleChange(e);
+  }
+
+  return (
+    <div className="w-full">
+      <label className="block mb-1 text-sm font-bold text-slate-800">
+        {label}
+      </label>
+
+      <div className="relative">
+        <select
+          name={name}
+          onChange={handlePreChange}
+          defaultValue={currentValue}
+          className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer">
+          {Object.entries(options).map(([key, value]) => (
+            <option key={key} value={key}>{value}</option>
+          ))}
+        </select>
+        <span className="h-5 w-5 ml-1 absolute top-2.5 right-2.5">
+          <DownwardChevron className="" />
+        </span>
+      </div>
+    </div>
+  )
+}
 
 function MultiSelectOnDropdown({ filterLabel, filterOptions, onMultiselectChange }) {
   const [selected, setSelected] = useState([]);
@@ -75,5 +156,8 @@ export {
   BaseInput,
   EmailInput,
   PasswordInput,
+  SingleSelectOnDropdown,
   MultiSelectOnDropdown,
+  TextAreaInput,
+  DateTimeField,
 }
