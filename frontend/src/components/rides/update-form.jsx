@@ -62,7 +62,7 @@ export default function RideEditForm({ currentValues, rideId, setIsEditing }) {
 
         <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-6 md:px-24 lg:px-20">
           <button onClick={handleSave} className="py-2 px-4 md:w-full text-gray-800 text-md border rounded-md border-slate-900 bg-transparent hover:border-slate-500 hover:bg-slate-500 hover:text-white">Save</button>
-          <button onClick={handleCancel} className="py-2 px-4 md:w-full text-gray-800 text-md border rounded-md border-slate-900 bg-transparent hover:border-red-300 hover:bg-red-400 hover:text-white">Cancel</button>
+          <button onClick={handleCancel} className="py-2 px-4 md:w-full text-gray-800 text-md border rounded-md border-slate-900 bg-transparent hover:border-slate-500 hover:bg-slate-500 hover:text-white">Cancel</button>
         </div>
       </div>
     </form>
