@@ -3,10 +3,15 @@ from django.db import models
 
 class Ride(models.Model):
     STATUS_CHOICES = [
+        ("requested", "Requested"),  # Ride created but not yet accepted.
+        ("assigned", "Assigned"),  # Driver assigned but hasn't started en route
         ("en-route", "En Route"),  # Driver is on the way to pick up the passenger.
         ("pickup", "Pickup"),  # Driver has arrived at the pickup location.
+        ("in-progress", "In Progress"),  # Passenger picked up, en route to dropoff.
         ("dropoff", "Dropoff"),  # Passenger is being or has been dropped off.
+        ("completed", "Completed"),  # Ride completed successfully.
         ("cancelled", "Cancelled"),  # Ride was cancelled (by user, driver, or system).
+        ("failed", "Failed"),  # Ride failed due to system/driver error.
     ]
 
     id_ride = models.AutoField(primary_key=True)
