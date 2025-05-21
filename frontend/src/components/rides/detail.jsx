@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
-import { Sidebar, LoaderSidebar } from "@components/ui"
 import axiosInstance from "@/axios";
+import { Sidebar, LoaderSidebar } from "@components/ui"
+import RideEditForm from "./update-form";
 
 function DetailItem({ label, children }) {
   return (
@@ -13,15 +14,15 @@ function DetailItem({ label, children }) {
 
 export function DetailSidebar({ rideId, onClose }) {
   const [details, setDetails] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
 
-  const handleEdit = async () => {
-    console.log("edit")
+  const handleRenderEdit = async () => {
+    setIsEditing(true)
   }
 
   const handleDelete = async () => {
-    console.log("delete")
+    // TODO: prompt dialog -- Please confirm bla bla bla
     const res = await axiosInstance.delete(`/rides/${rideId}/`, { withCredentials: true });
-
   }
 
   useEffect(() => {
@@ -34,6 +35,12 @@ export function DetailSidebar({ rideId, onClose }) {
   }, [rideId]);
 
   if (!details) return <LoaderSidebar onClose={onClose} />
+
+  if (isEditing) return <>
+    <Sidebar onClose={onClose}>
+      <RideEditForm currentValues={details} rideId={rideId} setIsEditing={setIsEditing} />
+    </Sidebar>
+  </>
 
   return (
     <Sidebar onClose={onClose}>
@@ -82,7 +89,7 @@ export function DetailSidebar({ rideId, onClose }) {
         </div>
 
         <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-6 md:px-24 lg:px-20">
-          <button onClick={handleEdit} className="py-2 px-4 md:w-full text-gray-800 text-md border rounded-md border-slate-900 bg-transparent hover:border-slate-500 hover:bg-slate-500 hover:text-white">Edit</button>
+          <button onClick={handleRenderEdit} className="py-2 px-4 md:w-full text-gray-800 text-md border rounded-md border-slate-900 bg-transparent hover:border-slate-500 hover:bg-slate-500 hover:text-white">Edit</button>
           <button onClick={handleDelete} className="py-2 px-4 md:w-full text-gray-800 text-md border rounded-md border-slate-900 bg-transparent hover:border-red-300 hover:bg-red-400 hover:text-white">Delete</button>
         </div>
       </div>
