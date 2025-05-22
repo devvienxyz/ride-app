@@ -4,6 +4,8 @@ This document provides the raw SQL query to generate a report on trips that exce
 
 This query addresses the bonus requirement of the assessment, demonstrating the ability to perform complex data aggregation and analysis directly at the database level.
 
+![psql](assets/psql_long_trip_local.png)
+
 ---
 
 ## Query Logic
@@ -22,17 +24,17 @@ The query operates in several logical steps using Common Table Expressions (CTEs
 WITH RideDurations AS (
     SELECT
         r.id_ride,
-        r.id_driver,
+        r.id_driver_id, -- <--- CORRECTED: Changed 'r.id_driver' to 'r.id_driver_id'
         MAX(CASE WHEN re.description = 'Status changed to pickup' THEN re.created_at END) AS pickup_time,
         MAX(CASE WHEN re.description = 'Status changed to dropoff' THEN re.created_at END) AS dropoff_time
     FROM
-        Ride AS r
+        ride_ride AS r
     JOIN
-        Ride_Event AS re ON r.id_ride = re.id_ride
+        ride_rideevent AS re ON r.id_ride = re.id_ride_id
     WHERE
         re.description IN ('Status changed to pickup', 'Status changed to dropoff')
     GROUP BY
-        r.id_ride, r.id_driver
+        r.id_ride, r.id_driver_id -- <--- CORRECTED: Also needs to be 'id_driver_id' in GROUP BY
     HAVING
         MAX(CASE WHEN re.description = 'Status changed to pickup' THEN re.created_at END) IS NOT NULL AND
         MAX(CASE WHEN re.description = 'Status changed to dropoff' THEN re.created_at END) IS NOT NULL
@@ -40,7 +42,7 @@ WITH RideDurations AS (
 FilteredLongTrips AS (
     SELECT
         rd.id_ride,
-        rd.id_driver,
+        rd.id_driver_id, -- <--- CORRECTED: Changed 'rd.id_driver' to 'rd.id_driver_id'
         rd.pickup_time,
         EXTRACT(EPOCH FROM (rd.dropoff_time - rd.pickup_time)) / 3600.0 AS trip_duration_hours -- Calculate duration in hours
     FROM
@@ -55,7 +57,7 @@ SELECT
 FROM
     FilteredLongTrips AS flt
 JOIN
-    "User" AS u ON flt.id_driver = u.id_user
+    users_user AS u ON flt.id_driver_id = u.id_user -- <--- CORRECTED: Changed 'flt.id_driver' to 'flt.id_driver_id'
 GROUP BY
     Month, Driver
 ORDER BY
@@ -78,3 +80,22 @@ Month  | Driver     | Count of Trips > 1 hr
 2024-03 |  Randy W   |    11
 2024-04 |  Howard Y  |    7
 2024-04 |  Randy W   |    3
+
+## Testing out the raw sql query, locally
+
+```bash
+# ensure postgres service is running
+sudo systemctl start postgresql
+
+# connect to db
+psql -h localhost -U admin_ride_app -d dev_ride_app
+
+# execute the query
+# copy paste the raw sql query to the terminal once connected to the db
+```
+
+## [Bonus] Detailed long trip sql query report
+
+![detailed_long_trip_sql_query_report](assets/detailed_long_trip_sql_query_report.png)
+
+This was generated using the raw sql query from `sql_scripts/long_trip_detailed.sql`.
