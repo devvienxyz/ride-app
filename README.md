@@ -81,4 +81,8 @@ Miscellaneous documentation is available in the `/docs/` directory:
 
 - **tools.md**: Overview of tools and services used in the project
 
+- **django.md**: Guide on generating fixtures, and how to load the fixtures.
+
+- **long_trip_report.md**: Raw SQL query for the long trip report
+
 Refer to these files for deeper configuration notes and development context.
