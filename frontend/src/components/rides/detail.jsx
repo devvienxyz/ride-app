@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import axiosInstance from "@/axios";
 import { Sidebar, LoaderSidebar } from "@components/ui"
+import { StatusFilterOptions } from "@/constants"
 import RideEditForm from "./update-form";
 
 function DetailItem({ label, children }) {
@@ -50,7 +51,7 @@ export function DetailSidebar({ rideId, onClose }) {
         </DetailItem>
 
         <DetailItem label="Status">
-          <p>{details.status}</p>
+          <p>{StatusFilterOptions[details.status]}</p>
         </DetailItem>
 
         <DetailItem label="Pickup Time">
