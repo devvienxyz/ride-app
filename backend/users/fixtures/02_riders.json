@@ -9,7 +9,7 @@
       "role": "rider",
       "is_active": true,
       "is_staff": false,
-      "password": "pbkdf2_sha256$1000000$VyOvkHERhhxQ5U7Qwt0FWi$oEBoEHrqUocDXNe0q57n4eGum5hni15j0A98rfZ6khI="
+      "password": "pbkdf2_sha256$1000000$E167PWmw2CKhLEiTTg8GkD$0C0qZsHsB57XXwKmjV2NJGz7SZ2BcYQg/r+RfwyksJM="
     }
   },
   {
@@ -22,7 +22,7 @@
       "role": "rider",
       "is_active": true,
       "is_staff": false,
-      "password": "pbkdf2_sha256$1000000$VyOvkHERhhxQ5U7Qwt0FWi$oEBoEHrqUocDXNe0q57n4eGum5hni15j0A98rfZ6khI="
+      "password": "pbkdf2_sha256$1000000$E167PWmw2CKhLEiTTg8GkD$0C0qZsHsB57XXwKmjV2NJGz7SZ2BcYQg/r+RfwyksJM="
     }
   },
   {
@@ -35,7 +35,7 @@
       "role": "rider",
       "is_active": true,
       "is_staff": false,
-      "password": "pbkdf2_sha256$1000000$VyOvkHERhhxQ5U7Qwt0FWi$oEBoEHrqUocDXNe0q57n4eGum5hni15j0A98rfZ6khI="
+      "password": "pbkdf2_sha256$1000000$E167PWmw2CKhLEiTTg8GkD$0C0qZsHsB57XXwKmjV2NJGz7SZ2BcYQg/r+RfwyksJM="
     }
   },
   {
@@ -48,7 +48,7 @@
       "role": "rider",
       "is_active": true,
       "is_staff": false,
-      "password": "pbkdf2_sha256$1000000$VyOvkHERhhxQ5U7Qwt0FWi$oEBoEHrqUocDXNe0q57n4eGum5hni15j0A98rfZ6khI="
+      "password": "pbkdf2_sha256$1000000$E167PWmw2CKhLEiTTg8GkD$0C0qZsHsB57XXwKmjV2NJGz7SZ2BcYQg/r+RfwyksJM="
     }
   },
   {
@@ -61,7 +61,7 @@
       "role": "rider",
       "is_active": true,
       "is_staff": false,
-      "password": "pbkdf2_sha256$1000000$VyOvkHERhhxQ5U7Qwt0FWi$oEBoEHrqUocDXNe0q57n4eGum5hni15j0A98rfZ6khI="
+      "password": "pbkdf2_sha256$1000000$E167PWmw2CKhLEiTTg8GkD$0C0qZsHsB57XXwKmjV2NJGz7SZ2BcYQg/r+RfwyksJM="
     }
   }
 ]
