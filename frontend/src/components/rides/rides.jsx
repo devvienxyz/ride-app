@@ -64,11 +64,15 @@ export default function Rides() {
     setSelectedRide(ride);
   }, []);
 
+  const handleSortChange = useCallback((e) => {
+    setSortOption(e.target.value)
+  })
+
   useEffect(() => {
     (async () => {
       try {
         const { data } = await axiosInstance.get("/rides/", {
-          params: { ordering: sortOption },
+          params: { sort: sortOption },
           withCredentials: true,
         });
         setRides({
@@ -105,13 +109,15 @@ export default function Rides() {
         <SingleSelectOnDropdown
           name="sort"
           options={{
-            distance: "Distance",
-            pickup_time: "Pickup Time",
-            "distance,pickup_time": "Distance + Pickup Time",
+            "distance_to_pickup": "Distance",
+            "-distance_to_pickup": "(Desc) Distance",
+            "pickup_time": "Pickup Time",
+            "-pickup_time": "(Desc) Pickup Time",
+            "distance_to_pickup,pickup_time": "Distance + Pickup Time",
           }}
           label={"Sort by"}
-          handleChange={setSortOption}
-          currentValue={"distance,pickup_time"}
+          handleChange={handleSortChange}
+          currentValue={"distance_to_pickup,pickup_time"}
         />
       </div>
     )
@@ -131,7 +137,7 @@ export default function Rides() {
             searchBarCtx={{
               title: "Rides Overview",
               subTitle: "Summary of all rides with route and participant info.",
-              searchPlaceholder: "Search rides..."
+              searchPlaceholder: "Search rider email..."
             }}
             emptyMsg="No rides found."
             resourceName="rides"
