@@ -35,11 +35,11 @@ class RideSerializer(serializers.ModelSerializer):
         threshold = self.context.get("today_threshold", now() - timedelta(hours=24))
         return RideEventSerializer(ride.events.filter(created_at__gte=threshold), many=True).data
 
-    def validate_pickup_time(self, value):
-        # TODO: create constant var for max pickup time
+    # def validate_pickup_time(self, value):
+    #     # TODO: create constant var for max pickup time
 
-        time_now = now()
+    #     time_now = now()
 
-        if not time_now <= value <= time_now + timedelta(hours=2):
-            raise serializers.ValidationError("Pickup time must be within the next 2 hours.")
-        return value
+    #     if not time_now <= value <= time_now + timedelta(hours=2):
+    #         raise serializers.ValidationError("Pickup time must be within the next 2 hours.")
+    #     return value
