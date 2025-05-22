@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import useStore from "@/store"
 import axiosInstance from "@/axios"
 import { StatusFilterOptions } from "@/constants";
-import { Table } from "@components/ui";
+import { Table, SingleSelectOnDropdown } from "@components/ui";
 import { DetailSidebar } from "./detail"
 import RideTableRow from "./ride-table-row";
 
@@ -20,6 +20,7 @@ export default function Rides() {
   const [selectedRide, setSelectedRide] = useState(null);
   const [filterEmail, setFilterEmail] = useState("");
   const [filterStatus, setFilterStatus] = useState([]);
+  const [sortOption, setSortOption] = useState("");
 
   const buildParams = (extra = {}) => {
     const params = {}
@@ -66,6 +67,25 @@ export default function Rides() {
   useEffect(() => {
     (async () => {
       try {
+        const { data } = await axiosInstance.get("/rides/", {
+          params: { ordering: sortOption },
+          withCredentials: true,
+        });
+        setRides({
+          count: data?.count || 0,
+          next: data?.next || null,
+          previous: data?.previous || null,
+          results: data?.results || [],
+        });
+      } catch (err) {
+        // Handle error
+      }
+    })();
+  }, [sortOption]);
+
+  useEffect(() => {
+    (async () => {
+      try {
         const { data } = await axiosInstance.get("/rides/", { withCredentials: true });
         setRides({
           count: data?.count || 0,
@@ -78,6 +98,24 @@ export default function Rides() {
       }
     })();
   }, [setRides]);
+
+  const SortField = () => {
+    return (
+      <div className="flex flex-col">
+        <SingleSelectOnDropdown
+          name="sort"
+          options={{
+            distance: "Distance",
+            pickup_time: "Pickup Time",
+            "distance,pickup_time": "Distance + Pickup Time",
+          }}
+          label={"Sort by"}
+          handleChange={setSortOption}
+          currentValue={"distance,pickup_time"}
+        />
+      </div>
+    )
+  }
 
   return (
     <>
@@ -102,6 +140,7 @@ export default function Rides() {
             rowRenderer={(ride, idx) => (
               <RideTableRow key={`ride-${idx}`} ride={ride} onClick={handleRideClick} />
             )}
+            SortComponent={SortField}
           />
         </div>
       </div>

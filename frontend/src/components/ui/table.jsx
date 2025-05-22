@@ -27,6 +27,7 @@ function TableSearchBar({
   onFilter,
   onSearchInputChange,
   searchBarCtx,
+  SortComponent = null,
   ...props
 }) {
   const { title, subTitle, searchPlaceholder } = searchBarCtx;
@@ -42,7 +43,7 @@ function TableSearchBar({
   }
 
   const SearchBar = (
-    <div className="ml-3 pr-3">
+    <div className="pr-3">
       <div className="w-full max-w-sm min-w-[200px] relative">
         <div className="relative">
           <input
@@ -64,22 +65,28 @@ function TableSearchBar({
   )
 
   return (
-    <div className="w-full flex flex-col md:flex-row justify-between items-center mb-3 mt-1 pl-3 gap-2">
+    <div className="w-full flex flex-col lg:flex-row justify-between items-center mb-3 mt-1 pl-3 gap-2">
       <div>
         <h3 className="text-lg font-semibold text-slate-800">{title}</h3>
         <p className="text-slate-500 text-sm wrap">{subTitle}</p>
       </div>
 
       <div className="flex flex-col justify-center gap-2 align-center sm:flex-row">
+        {!!SortComponent && (
+          <div className="flex flex-col justify-center md:self-end">
+            <SortComponent />
+          </div>)
+        }
+
         {/* dropdown for filter */}
-        <div className="flex justify-center md:justify-end">
+        <div className="flex flex-col justify-center md:self-end md:justify-end">
           <MultiSelectOnDropdown
             filterLabel={filterLabel}
             filterOptions={filterOptions}
             onMultiselectChange={onMultiselectChange} />
         </div>
 
-        <div className="">
+        <div className="flex flex-col self-end">
           {SearchBar}
         </div>
       </div>
@@ -157,6 +164,7 @@ export default function Table({
   headers,
   paginationCtx,
   rowRenderer,
+  SortComponent = null,
   emptyMsg = "Empty"
 }) {
   const { count, previous, next, results } = paginationCtx;
@@ -171,6 +179,7 @@ export default function Table({
         onFilter={onFilter}
         onSearchInputChange={onSearchInputChange}
         searchBarCtx={searchBarCtx}
+        SortComponent={SortComponent}
       />
 
       <div className="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">

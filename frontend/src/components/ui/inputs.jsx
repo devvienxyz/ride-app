@@ -108,6 +108,7 @@ function SingleSelectOnDropdown({ name, options, handleChange, label, currentVal
 function MultiSelectOnDropdown({ filterLabel, filterOptions, onMultiselectChange }) {
   const [selected, setSelected] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false)
+  const btnText = selected.length === 0 || selected.length === Object.keys(filterOptions).length ? "All choices" : selected.length > 1 ? `${selected[0]}, ...` : selected[0];
 
   const handleCheckboxChange = (e) => {
     const value = e.target.value;
@@ -121,11 +122,15 @@ function MultiSelectOnDropdown({ filterLabel, filterOptions, onMultiselectChange
 
   return (
     <div className="h-full relative inline-block text-left">
+      <label className="block mb-1 text-sm font-bold text-slate-800">
+        {filterLabel}
+      </label>
+
       <button
-        className="inline-flex h-full w-full items-center justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50"
+        className="min-w-max w-full justify-between md:w-auto inline-flex items-center md:justify-center gap-x-1.5 rounded-md bg-slate-100 px-3 py-2 text-sm text-slate-700 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50"
         type="button"
         onClick={() => setShowDropdown(!showDropdown)}>
-        {filterLabel}<DownwardChevron />
+        {btnText}<DownwardChevron />
       </button>
 
       {showDropdown && (

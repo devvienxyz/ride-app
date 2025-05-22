@@ -32,7 +32,7 @@ export default function RideEditForm({ currentValues, rideId, setIsEditing }) {
     e.preventDefault();
 
     try {
-      await axiosInstance.patch(`/rides/${rideId}`, formData, { withCredentials: true })
+      await axiosInstance.patch(`/rides/${rideId}/`, formData, { withCredentials: true })
     } catch (err) {
       return;
     }
@@ -56,7 +56,7 @@ export default function RideEditForm({ currentValues, rideId, setIsEditing }) {
           label="Pickup time"
           handleChange={handleChange}
           value={formData.pickup_time}
-          helperText={"Pickup time must be within 2 hours from now."}
+        // helperText={"Pickup time must be within 2 hours from now."}
         />
 
         <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-6 md:px-24 lg:px-20">
