@@ -10,11 +10,12 @@ def create_event_on_create_and_status_change(sender, instance, created, **kwargs
     #   - change of ride status
 
     if created:
-        RideEvent.objects.create(ride=instance, description=f"Ride created with initial status '{instance.status}'")
+        RideEvent.objects.create(id_ride=instance, description=f"Ride created with initial status '{instance.status}'")
         return
 
     # only log the event if status changed
     if hasattr(instance, "_original_status") and instance.status != instance._original_status:
         RideEvent.objects.create(
-            ride=instance, description=f"Ride status changed from '{instance._original_status}' to '{instance.status}'"
+            id_ride=instance,
+            description=f"Ride status changed from '{instance._original_status}' to '{instance.status}'",
         )
