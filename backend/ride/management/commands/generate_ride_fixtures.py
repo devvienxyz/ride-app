@@ -2,12 +2,13 @@ import json
 import os
 import random
 from datetime import timedelta
-from django.core.management.base import BaseCommand, CommandError  # Import BaseCommand and CommandError
-from django.contrib.auth import get_user_model  # Import get_user_model
-from django.utils import timezone  # Import timezone for make_aware
+from django.core.management.base import BaseCommand, CommandError
+from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 # --- Configuration ---
 NUM_RIDES = 50
+NUM_LONG_TRIPS = 5  # Number of guaranteed long trips (duration > 1 hour)
 OUTPUT_DIR = "ride/fixtures"
 
 # Ride Status Choices from your models.py
@@ -54,12 +55,10 @@ def generate_random_datetime(start_date, end_date):
     """
     time_delta = end_date - start_date
     random_seconds = random.uniform(0, time_delta.total_seconds())
-    # Since start_date is already timezone-aware, adding a timedelta will result
-    # in another timezone-aware datetime. No need for make_aware here.
     return start_date + timedelta(seconds=random_seconds)
 
 
-def generate_ride_data(ride_pk, rider_pk, driver_pk):
+def generate_ride_data(ride_pk, rider_pk, driver_pk, status_override=None):
     """Generates data for a single Ride instance."""
     pickup_lat, pickup_lon = generate_random_coords()
     dropoff_lat, dropoff_lon = generate_random_coords()
@@ -69,7 +68,7 @@ def generate_ride_data(ride_pk, rider_pk, driver_pk):
         dropoff_lat, dropoff_lon = generate_random_coords()
 
     # Generate pickup time within the last 30 days
-    end_time = timezone.now()  # Use timezone.now() for timezone-aware current time
+    end_time = timezone.now()
     start_time = end_time - timedelta(days=30)
     pickup_time = generate_random_datetime(start_time, end_time)
 
@@ -77,14 +76,14 @@ def generate_ride_data(ride_pk, rider_pk, driver_pk):
         "model": "ride.ride",
         "pk": ride_pk,
         "fields": {
-            "status": random.choice(STATUS_CHOICES),  # Final status for the ride
+            "status": status_override if status_override else random.choice(STATUS_CHOICES),
             "id_rider": rider_pk,
             "id_driver": driver_pk,
             "pickup_latitude": pickup_lat,
             "pickup_longitude": pickup_lon,
             "dropoff_latitude": dropoff_lat,
             "dropoff_longitude": dropoff_lon,
-            "pickup_time": pickup_time.isoformat(),  # ISO format for DateTimeField
+            "pickup_time": pickup_time.isoformat(),
         },
     }
 
@@ -95,9 +94,9 @@ def generate_ride_event_data(event_pk, ride_pk, description, created_at):
         "model": "ride.rideevent",
         "pk": event_pk,
         "fields": {
-            "id_ride_id": ride_pk,  # Changed from 'id_ride' to 'id_ride_id' for explicit foreign key
+            "id_ride_id": ride_pk,
             "description": description,
-            "created_at": created_at.isoformat(),  # ISO format for DateTimeField
+            "created_at": created_at.isoformat(),
         },
     }
 
@@ -112,7 +111,6 @@ class Command(BaseCommand):
         os.makedirs(OUTPUT_DIR, exist_ok=True)
 
         User = get_user_model()
-        # Fetch all existing user IDs using 'id_user' as the primary key field
         user_ids = list(User.objects.values_list("id_user", flat=True))
 
         if not user_ids:
@@ -125,6 +123,7 @@ class Command(BaseCommand):
         event_pk_counter = 1  # Counter for RideEvent primary keys
 
         self.stdout.write(self.style.SUCCESS(f"Generating {NUM_RIDES} rides and associated events..."))
+        self.stdout.write(self.style.NOTICE(f"Ensuring {NUM_LONG_TRIPS} rides are 'long trips' (> 1 hour duration)."))
 
         for i in range(NUM_RIDES):
             ride_pk = i + 1
@@ -134,7 +133,7 @@ class Command(BaseCommand):
             driver_pk = random.choice(user_ids)
 
             # Ensure rider and driver are different for a ride
-            if len(user_ids) > 1:  # Only try to find different users if more than one exists
+            if len(user_ids) > 1:
                 while rider_pk == driver_pk:
                     driver_pk = random.choice(user_ids)
             else:
@@ -142,60 +141,126 @@ class Command(BaseCommand):
                     self.style.WARNING("Only one user found. Rider and Driver might be the same for some rides.")
                 )
 
-            ride = generate_ride_data(ride_pk, rider_pk, driver_pk)
+            is_long_trip = i < NUM_LONG_TRIPS  # The first NUM_LONG_TRIPS rides will be long trips
+
+            # For long trips, force the ride status to 'completed' for realism
+            ride = generate_ride_data(
+                ride_pk, rider_pk, driver_pk, status_override="completed" if is_long_trip else None
+            )
             rides_data.append(ride)
 
-            # Get the ride's pickup time and final status
-            # timezone.datetime.fromisoformat will correctly parse the ISO string into a timezone-aware datetime
-            ride_pickup_time = timezone.datetime.fromisoformat(ride["fields"]["pickup_time"])
-            final_ride_status = ride["fields"]["status"]
+            # Get the ride's base pickup time (from ride object, not event)
+            base_ride_pickup_time = timezone.datetime.fromisoformat(ride["fields"]["pickup_time"])
 
-            # 1. Generate the initial 'Ride created' event (mimics signal on create)
-            initial_event_time = ride_pickup_time - timedelta(minutes=random.randint(1, 5))  # Slightly before pickup
-            initial_description = f"Ride created with initial status 'requested'"
-            event = generate_ride_event_data(event_pk_counter, ride_pk, initial_description, initial_event_time)
+            # --- Generate events for this ride ---
+            current_event_time = base_ride_pickup_time - timedelta(minutes=random.randint(1, 5))  # Initial event time
+
+            # 1. Generate the initial 'Ride created' event
+            event = generate_ride_event_data(
+                event_pk_counter, ride_pk, "Ride created with initial status 'requested'", current_event_time
+            )
             ride_events_data.append(event)
             event_pk_counter += 1
 
-            # 2. Simulate status changes leading to the final status
-            current_status = "requested"
-            current_event_time = initial_event_time
+            if is_long_trip:
+                # --- Special handling for guaranteed long trips ---
+                # Ensure a realistic flow of events for a completed long trip
 
-            # Keep track of the path taken
-            status_path = ["requested"]
-
-            # Loop to transition through statuses until the final status is reached
-            while current_status != final_ride_status and current_status not in ["completed", "cancelled", "failed"]:
-                possible_next_statuses = STATUS_TRANSITIONS.get(current_status, [])
-
-                # If the final status is directly reachable from current, take it
-                if final_ride_status in possible_next_statuses:
-                    next_status = final_ride_status
-                # If not, and there are other options, pick a random valid transition
-                elif possible_next_statuses:
-                    next_status = random.choice(possible_next_statuses)
-                else:
-                    # No valid transitions, break (e.g., if current_status is already terminal)
-                    break
-
-                # Ensure we don't loop endlessly if final_ride_status is unreachable
-                if next_status in status_path and next_status != final_ride_status:
-                    break  # Avoid infinite loops if status graph is complex
-
-                status_path.append(next_status)
-
-                # Generate event for status change
-                current_event_time += timedelta(minutes=random.randint(5, 30))  # Increment time
-                description = f"Ride status changed from '{current_status}' to '{next_status}'"
-                event = generate_ride_event_data(event_pk_counter, ride_pk, description, current_event_time)
+                # Assigned event
+                current_event_time += timedelta(minutes=random.randint(5, 10))
+                event = generate_ride_event_data(
+                    event_pk_counter, ride_pk, "Status changed to assigned", current_event_time
+                )
                 ride_events_data.append(event)
                 event_pk_counter += 1
 
-                current_status = next_status
+                # En-route event
+                current_event_time += timedelta(minutes=random.randint(5, 10))
+                event = generate_ride_event_data(
+                    event_pk_counter, ride_pk, "Status changed to en-route", current_event_time
+                )
+                ride_events_data.append(event)
+                event_pk_counter += 1
 
-                # If we reached a terminal status, stop generating further events
-                if current_status in ["completed", "cancelled", "failed"]:
-                    break
+                # Pickup event (Crucial for SQL query)
+                pickup_event_time = current_event_time + timedelta(minutes=random.randint(5, 15))
+                event = generate_ride_event_data(
+                    event_pk_counter, ride_pk, "Status changed to pickup", pickup_event_time
+                )
+                ride_events_data.append(event)
+                event_pk_counter += 1
+
+                # In-progress event
+                current_event_time = pickup_event_time + timedelta(minutes=random.randint(10, 20))
+                event = generate_ride_event_data(
+                    event_pk_counter, ride_pk, "Status changed to in-progress", current_event_time
+                )
+                ride_events_data.append(event)
+                event_pk_counter += 1
+
+                # Dropoff event (Crucial for SQL query - ensure > 1 hour from pickup_event_time)
+                dropoff_event_time = pickup_event_time + timedelta(
+                    hours=1, minutes=random.randint(5, 45)
+                )  # Guaranteed > 1 hour
+                event = generate_ride_event_data(
+                    event_pk_counter, ride_pk, "Status changed to dropoff", dropoff_event_time
+                )
+                ride_events_data.append(event)
+                event_pk_counter += 1
+
+                # Completed event
+                current_event_time = dropoff_event_time + timedelta(minutes=random.randint(5, 15))
+                event = generate_ride_event_data(
+                    event_pk_counter, ride_pk, "Status changed to completed", current_event_time
+                )
+                ride_events_data.append(event)
+                event_pk_counter += 1
+
+            else:
+                # --- Existing logic for random status changes for regular trips ---
+                current_status = "requested"
+                final_ride_status = ride["fields"]["status"]  # Use the randomly assigned status
+
+                status_path = ["requested"]
+
+                while current_status != final_ride_status and current_status not in [
+                    "completed",
+                    "cancelled",
+                    "failed",
+                ]:
+                    possible_next_statuses = STATUS_TRANSITIONS.get(current_status, [])
+
+                    if final_ride_status in possible_next_statuses:
+                        next_status = final_ride_status
+                    elif possible_next_statuses:
+                        next_status = random.choice(possible_next_statuses)
+                    else:
+                        break  # No valid transitions, break
+
+                    if next_status in status_path and next_status != final_ride_status:
+                        break  # Avoid infinite loops
+
+                    status_path.append(next_status)
+
+                    current_event_time += timedelta(minutes=random.randint(5, 30))  # Increment time
+
+                    # Ensure specific descriptions for pickup/dropoff for SQL query
+                    description = f"Status changed to {next_status}"
+                    if next_status == "pickup":
+                        description = "Status changed to pickup"
+                    elif next_status == "dropoff":
+                        description = "Status changed to dropoff"
+                    elif next_status == "completed":
+                        description = "Status changed to completed"  # Ensure this too
+
+                    event = generate_ride_event_data(event_pk_counter, ride_pk, description, current_event_time)
+                    ride_events_data.append(event)
+                    event_pk_counter += 1
+
+                    current_status = next_status
+
+                    if current_status in ["completed", "cancelled", "failed"]:
+                        break
 
         # Save rides fixture
         rides_file_path = os.path.join(OUTPUT_DIR, "00_rides.json")
