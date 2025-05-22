@@ -20,22 +20,30 @@ export default function Rides() {
   const [selectedRide, setSelectedRide] = useState(null);
   const [filterEmail, setFilterEmail] = useState("");
   const [filterStatus, setFilterStatus] = useState([]);
-  const [sortOption, setSortOption] = useState("");
+  const [sortOption, setSortOption] = useState("pickup_time");
 
-  const buildParams = (extra = {}) => {
-    const params = {}
+  const buildParams = useCallback(() => {
+    const params = {};
 
     if (filterStatus.length && filterStatus.length < Object.keys(StatusFilterOptions).length) {
-      params.status = filterStatus.join(",")
+      params.status = filterStatus.join(",");
     }
 
-    if (filterEmail) params.rider_email = filterEmail;
+    if (filterEmail) {
+      params.rider_email = filterEmail;
+    }
 
-    return { ...params, ...extra }
-  };
+    // Always include sortOption in the parameters
+    if (sortOption) {
+      params.sort = sortOption;
+    }
 
-  const fetchRides = useCallback(async (params = {}) => {
+    return params;
+  }, [filterStatus, filterEmail, sortOption]); // Dependencies for useCallback
+
+  const fetchRides = useCallback(async (extraParams = {}) => {
     try {
+      const params = { ...buildParams(), ...extraParams }; // Combine base params with any extra
       const { data } = await axiosInstance.get("/rides/", {
         params,
         withCredentials: true,
@@ -48,60 +56,33 @@ export default function Rides() {
         results: data?.results || [],
       });
     } catch (err) {
-      // TODO: add error handling
+      // console.error("Failed to fetch rides:", err);
+      // TODO: Implement user-facing error notification
     }
-  }, [setRides]);
+  }, [buildParams, setRides]); // Dependencies for useCallback
+
+  // Consolidate all data fetching into a single useEffect
+  useEffect(() => {
+    // This effect will run on initial mount and whenever filterEmail, filterStatus, or sortOption changes.
+    fetchRides();
+  }, [fetchRides]); // fetchRides is a useCallback, so it's stable unless its own dependencies change
 
   const onFilter = useCallback(() => {
-    fetchRides(buildParams());
-  }, [filterEmail, filterStatus, fetchRides]);
+    // No need to pass params here, fetchRides will use the latest state via buildParams
+    fetchRides();
+  }, [fetchRides]);
 
   const onPageChange = useCallback((newPageNo) => {
-    fetchRides(buildParams({ page: newPageNo }));
-  }, [filterEmail, filterStatus, fetchRides]);
+    fetchRides({ page: newPageNo });
+  }, [fetchRides]);
 
   const handleRideClick = useCallback((ride) => {
     setSelectedRide(ride);
   }, []);
 
   const handleSortChange = useCallback((e) => {
-    setSortOption(e.target.value)
-  })
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axiosInstance.get("/rides/", {
-          params: { sort: sortOption },
-          withCredentials: true,
-        });
-        setRides({
-          count: data?.count || 0,
-          next: data?.next || null,
-          previous: data?.previous || null,
-          results: data?.results || [],
-        });
-      } catch (err) {
-        // Handle error
-      }
-    })();
-  }, [sortOption]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axiosInstance.get("/rides/", { withCredentials: true });
-        setRides({
-          count: data?.count || 0,
-          next: data?.next || null,
-          previous: data?.previous || null,
-          results: data?.results || [],
-        });
-      } catch (err) {
-        // Handle error
-      }
-    })();
-  }, [setRides]);
+    setSortOption(e.target.value);
+  }, []);
 
   const SortField = () => {
     return (
@@ -117,7 +98,7 @@ export default function Rides() {
           }}
           label={"Sort by"}
           handleChange={handleSortChange}
-          currentValue={"distance_to_pickup,pickup_time"}
+          currentValue={sortOption}
         />
       </div>
     )
