@@ -1,4 +1,5 @@
 import axios from "axios"
+import useStore from "@/store";
 
 const axiosInstance = axios.create({
   baseURL: "/api",
