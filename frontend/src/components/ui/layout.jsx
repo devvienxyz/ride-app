@@ -17,7 +17,8 @@ const NavBar = () => {
   }
 
   return (
-    <nav className="overflow-x-hidden absolute top-0 px-4 sm:px-12 py-4 w-full bg-white sticky z-1">
+    // temporary z-[1001]
+    <nav className="overflow-x-hidden absolute top-0 px-4 sm:px-12 py-4 w-full bg-white sticky z-[1001]">
       <ul className="sm:mx-12 flex flex-row justify-between">
         <li>
           <BrandLink addlClasses="text-2xl text-blue-950" to="/">ride</BrandLink>
