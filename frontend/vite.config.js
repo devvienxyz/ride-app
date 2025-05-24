@@ -47,6 +47,9 @@ export default defineConfig(({ mode }) => {
         "@utils": path.resolve(__dirname, "src/utils"),
       },
     },
+    optimizeDeps: {
+      include: ['react-leaflet'],
+    },
     build: {
       sourcemap: false,
       outDir: "dist",
